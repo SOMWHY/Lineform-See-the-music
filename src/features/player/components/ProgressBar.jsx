@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react"
-import { useAudioStore } from "../../store/audioStore"
-import InfoText from "./InfoText"
+import { useAudioStore } from "../../../store/audioStore"
+import InfoText from "../../../components/ui/InfoText"
 
 const ProgressBar = ({ audioEl }) => {
-  const { songs, setCurrentSongIndex, currentSongIndex } = useAudioStore()
+  const { currentSongIndex } = useAudioStore()
   const [curTime, setCurTime] = useState(0) //TODO:change to zustand:add audioEl,curTime,setCurTime
   //change s to xxminxxs
   //after using zustand,move info-list below playBar

@@ -1,10 +1,10 @@
 import React from "react"
 
-const ListItem = ({ text, icon }) => {
+const ListItem = ({link, text, icon }) => {
   return (
     <li className='hover:translate-x-md  transition'>
       <a
-        href='https://github.com/SOMWHY/3d-audio-visualizer-starter'
+        href={link}
         className='gap-sm bg-froly-500/15 pl-sm py-xs flex items-center text-2xl hover:underline'
       >
         {icon}
