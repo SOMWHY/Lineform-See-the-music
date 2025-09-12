@@ -10,6 +10,5 @@ export default defineConfig({
       "@src": resolve(__dirname, "./src"),
     },
   },
-  plugins: [react(), tailwindcss()],
-  base: "/",
+  plugins: [react(), tailwindcss()]
 })
