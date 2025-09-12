@@ -5,6 +5,7 @@ const ListItem = ({link, text, icon }) => {
     <li className='hover:translate-x-md  transition'>
       <a
         href={link}
+        target="_blank"
         className='gap-sm bg-froly-500/15 pl-sm py-xs flex items-center text-2xl hover:underline'
       >
         {icon}
