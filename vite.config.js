@@ -10,5 +10,6 @@ export default defineConfig({
       "@src": resolve(__dirname, "./src"),
     },
   },
-  plugins: [react(), tailwindcss()]
+  plugins: [react(), tailwindcss()],
+  base:'/Lineform-See-the-music/'
 })
