@@ -9,7 +9,7 @@ export const useAudioStore = create((set, get) => ({
     set({ visualizer })
   },
   fetchSongs: async () => {
-    const response = await fetch("/audioData.json")
+    const response = await fetch(import.meta.env.BASE_URL+"/audioData.json")
     if (!response.ok) {
       throw new Error("Failed to fetch audio data")
     }
