@@ -34,7 +34,7 @@ const ProgressBar = ({ audioEl }) => {
       </div>
       {/* <div className='info-list'>
         <InfoText name={"currentTime"}>{Math.trunc(curTime)?.toString()}s</InfoText>
-        <InfoText name={"duration"}>{duration?.toString()}s</InfoText>
+        <InfoText name={"duration"}>{duration?.toString()}s</InfoText> 
       </div> */}
     </>
   )
