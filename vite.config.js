@@ -11,5 +11,5 @@ export default defineConfig({
     },
   },
   plugins: [react(), tailwindcss()],
-  base:'/'
+  base:'/Lineform-See-the-music/'
 })
