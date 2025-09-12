@@ -1,14 +1,14 @@
 {
   "songs": [
     {
-      "uri": "/Lineform-See-the-music/audio/sweetTime.mp3",
+      "uri": "/audio/sweetTime.mp3",
       "artist": "Porter Robinson",
       "song": "sweetTime",
       "album": "Nurture",
       "genre": "nurture"
     },
     {
-      "uri": "/Lineform-See-the-music/audio/生活.mp3",
+      "uri": "/audio/生活.mp3",
       "artist": "水中スピカ",
       "song": "生活",
       "album": "Osm",

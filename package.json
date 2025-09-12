@@ -1,6 +1,5 @@
 {
   "name": "react-three-vite",
-  "homepage": "https://somwhy.github.io/Lineform-See-the-music/",
   "version": "2.0.0",
   "description": "A simple React Three Fiber + Vite starter.",
   "keywords": [
@@ -12,7 +11,8 @@
     "react three fiber",
     "sandbox"
   ],
-  "author": "Benjamin Miles <talk@benjaminmiles.com> (https://github.com/benjaminmiles)",
+  "author": "SOM_WHY (https://github.com/benjaminmiles)",
+  "starterAuthor": "Benjamin Miles <talk@benjaminmiles.com> (https://github.com/benjaminmiles)",
   "repository": "github:benjaminmiles/react-three-vite",
   "license": "MIT",
   "dependencies": {
@@ -38,8 +38,8 @@
     "dev": "vite --host",
     "build": "vite build",
     "preview": "vite preview",
-    "predeploy":"npm run build",
-    "deploy":"gh-pages -d dist"
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
   },
   "browserslist": [
     ">0.2%",
