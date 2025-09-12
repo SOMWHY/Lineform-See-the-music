@@ -4,7 +4,7 @@ import VisualOutput from "./features/visualizer/components/VisualOutput"
 const App = () => {
   return (
     <>
-      <VisualOutput />
+      {/* <VisualOutput /> */}
       {/* <Playlist /> */}
     </>
   )
