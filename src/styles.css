@@ -1,5 +1,81 @@
+@font-face {
+  font-family: ComingSoon;
+  src: url("../src/assets/fonts/Coming_Soon/ComingSoon-Regular.ttf");
+}
+
+@font-face {
+  font-family: Inline;
+  src: url("../src/assets/fonts/Big_Shoulders_Inline/BigShouldersInline-VariableFont_opsz\,wght.ttf");
+}
+
+@import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-*: initial;
+  --font-comingSoon: ComingSoon, sans-serif;
+  --font-inline: Inline, sans-serif;
+
+  --spacing-*: initial;
+  --spacing-0: 0;
+  --spacing-2xs: 0.15rem;
+  --spacing-xs: 0.5rem;
+  --spacing-sm: 0.8rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+  --spacing-2xl: 4rem;
+  --spacing-3xl: 8rem;
+  --spacing-4xl: 10rem;
+  --spacing-5xl: 18rem;
+
+  --color-*: initial;
+  --color-bunker-50: #ebfffe;
+  --color-bunker-100: #ccfffe;
+  --color-bunker-200: #9ffeff;
+  --color-bunker-300: #5dfaff;
+  --color-bunker-400: #14ebfc;
+  --color-bunker-500: #00cee2;
+  /* --color-bunker-600: #00a4be;
+  --color-bunker-700: #058299; */
+  --color-bunker-800: #0e697c;
+  --color-bunker-900: #115568;
+  --color-bunker-950: #010f13;
+  --color-froly-500: #ef445a;
+  --color-froly-600: #dc2243;
+  --color-froly-700: #b91737;
+}
+
+@utility flex-center {
+  @apply items-center justify-center;
+}
+@utility btn {
+  @apply cursor-pointer transition-all hover:scale-110;
+}
+
+.scrollbar-hidden {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+}
+
+.progress-bar::after {
+  @apply bg-bunker-50 absolute right-0 bottom-[1px] aspect-square w-xs translate-x-[50%] translate-y-[50%] rounded-full content-[""];
+}
+
+.info {
+  @apply mx-2xs my-2xs w-full text-left text-xs leading-tight font-light;
+}
+
+.info-list {
+  @apply mb-md m-0;
+}
+
 * {
   box-sizing: border-box;
+}
+
+html {
+  font-size: 15px;
 }
 
 html,
@@ -9,7 +85,7 @@ body,
   height: 100%;
   margin: 0;
   padding: 0;
-  background-color: #272727;
+
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   -khtml-user-select: none;
@@ -26,8 +102,7 @@ body,
 body {
   position: fixed;
   overflow: hidden;
+  background-color: black;
   overscroll-behavior-y: none;
-  font-family: helvetica neue, helvetica, arial, sans-serif;
-  color: black;
   -webkit-font-smoothing: antialiased;
 }

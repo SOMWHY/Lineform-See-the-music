@@ -1,0 +1,46 @@
+{
+  "songs": [
+    {
+      "uri": "/sweetTime.mp3",
+      "artist": "Porter Robinson",
+      "song": "sweetTime",
+      "album": "nurture",
+      "genre": "nurture"
+    },
+    {
+      "uri": "/生活.mp3",
+      "artist": "水中スピカ",
+      "song": "生活",
+      "album": "Osm",
+      "genre": "mid-west emo"
+    },
+    {
+      "uri": "/生活.mp3",
+      "artist": "水中スピカ",
+      "song": "生活",
+      "album": "Osm",
+      "genre": "mid-west emo"
+    },
+    {
+      "uri": "/生活.mp3",
+      "artist": "水中スピカ",
+      "song": "生活",
+      "album": "Osm",
+      "genre": "mid-west emo"
+    },
+    {
+      "uri": "/生活.mp3",
+      "artist": "水中スピカ",
+      "song": "生活",
+      "album": "Osm",
+      "genre": "mid-west emo"
+    },
+    {
+      "uri": "/生活.mp3",
+      "artist": "水中スピカ",
+      "song": "生活",
+      "album": "Osm",
+      "genre": "mid-west emo"
+    }
+  ]
+}

@@ -17,12 +17,19 @@
   "dependencies": {
     "@react-three/drei": "10.6.1",
     "@react-three/fiber": "9.3.0",
+    "@tailwindcss/vite": "^4.1.13",
     "react": "19.1.1",
     "react-dom": "19.1.1",
-    "three": "0.178.0"
+    "react-icons": "^5.5.0",
+    "tailwindcss": "^4.1.13",
+    "three": "0.178.0",
+    "wavesurfer.js": "^7.10.1",
+    "zustand": "^5.0.8"
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^4.3.3",
+    "prettier": "^3.6.2",
+    "prettier-plugin-tailwindcss": "^0.6.14",
     "vite": "^7.0.6"
   },
   "scripts": {
@@ -35,5 +42,6 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "type": "module"
 }

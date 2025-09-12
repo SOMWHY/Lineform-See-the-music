@@ -1,6 +1,9 @@
 import React, { useRef } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { Box, OrbitControls } from "@react-three/drei";
+import { Playlist } from "./features/player/components/Playlist";
+import LineForm from "./features/visualizer/components/LineForm";
+
 
 const Scene = () => {
   const boxRef = useRef();
@@ -20,10 +23,14 @@ const Scene = () => {
 
 const App = () => {
   return (
-    <Canvas camera={{ fov: 70, position: [0, 0, 3] }}>
-      <OrbitControls />
-      <Scene />
-    </Canvas>
+    <>
+      <Canvas camera={{ fov: 70, position: [0, 0, 3] }}>
+        <OrbitControls />
+        <Scene />
+      {/* <LineForm/> */}
+      </Canvas>
+      <Playlist />
+    </>
   );
 };
 
