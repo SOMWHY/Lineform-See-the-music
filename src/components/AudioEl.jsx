@@ -27,7 +27,7 @@ export default function AudioEl() {
       }
       setAudioEl(audioEl)
       audioEl.volume = volume
-      audioEl.play()
+  
     }
   }, [song?.uri, volume])
 
