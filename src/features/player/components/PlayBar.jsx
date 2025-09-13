@@ -1,14 +1,11 @@
 import { useAudioStore } from "../../../store/audioStore"
-import { BsFillVolumeMuteFill } from "react-icons/bs"
-import { HiSpeakerWave } from "react-icons/hi2"
 import ProgressBar from "./ProgressBar"
 import BtnPrev from "./BtnPrev"
 import BtnPlayPause from "./BtnPlayPause"
 import BtnNext from "./BtnNext"
 
 import AudioEl from "../../../components/AudioEl"
-import VolumeBarContainer from "./VolumeBarContiner"
-import VolumeFill from "./VolumeFill"
+
 
 export const PlayBar = () => {
   const songs = useAudioStore(state => state.songs)
@@ -16,12 +13,6 @@ export const PlayBar = () => {
   const setCurrentSongIndex = useAudioStore(state => state.setCurrentSongIndex)
   const playing = useAudioStore(state => state.playing)
   const setPlaying = useAudioStore(state => state.setPlaying)
-  const volume = useAudioStore(state => state.volume)
-   const prevVolume = useAudioStore(state => state.prevVolume) // 获取 prevVolume
-  const setVolume = useAudioStore(state => state.setVolume)
-  const audioEl = useAudioStore(state => state.audioEl)
-
-  const song = typeof currentSongIndex === "number" ? songs[currentSongIndex] : undefined
 
   const prevTrack = () => {
     if (typeof currentSongIndex === "number") {
@@ -47,13 +38,6 @@ export const PlayBar = () => {
     setPlaying(!playing)
   }
 
-  const toggleMuted = () => {
-    if (audioEl.volume === 0) setVolume(prevVolume)
-    else setVolume(0)
-  }
-
-  const isMuted = volume === 0
-
   return (
     <div>
       <ProgressBar />
@@ -64,16 +48,6 @@ export const PlayBar = () => {
         <BtnNext nextTrack={nextTrack} />
       </div>
 
-      <div className='mt-xs px-md h-sm py-xs flex-center flex'>
-        <div className='gap-md flex w-[100%] items-center'>
-          <VolumeBarContainer>
-            <VolumeFill />
-          </VolumeBarContainer>
-          {/* have song->have icon */}
-          {/* icon depends on isMuted */}
-          <span onClick={toggleMuted}>{song ? isMuted ? <BsFillVolumeMuteFill /> : <HiSpeakerWave /> : ""}</span>
-        </div>
-      </div>
       <AudioEl />
     </div>
   )

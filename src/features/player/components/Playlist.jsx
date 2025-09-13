@@ -7,9 +7,9 @@ import Footer from "./Footer"
 import ToggleBtn from "../../../components/ui/ToggleBtn"
 import InfoList from "../../../components/InfoList"
 import SongItem from "./SongItem"
+import { DIRECTION, POSITION } from "../../../lib/CONSTANTS"
 export const Playlist = () => {
   //TODO
-  //Volume control
   //waveform
   const [hideSidebar, setHideSidebar] = useState(false)
   const songs = useAudioStore(state => state.songs)
@@ -19,9 +19,9 @@ export const Playlist = () => {
   }
   return (
     <div
-      className={`bg-bunker-950 text-bunker-100/90 shadow-bunker-900 absolute top-0 left-0 z-[1] flex h-full w-full ${hideSidebar ? "-translate-x-[100%]" : "translate-x-0"} max-w-5xl origin-left flex-col gap-[0.5em] p-[1.5em] shadow-md transition duration-250 ease-in hover:shadow-xl`}
+      className={` general-container absolute top-0 left-0  flex h-full w-full ${hideSidebar ? "-translate-x-[100%]" : "translate-x-0"} max-w-5xl origin-left flex-col gap-[0.5em] p-[1.5em] `}
     >
-      <ToggleBtn toggleSideBar={toggleSideBar} hideSidebar={hideSidebar} />
+      <ToggleBtn toggleSideBar={toggleSideBar} hideSidebar={hideSidebar} direction={DIRECTION.LEFT_RIGHT} position={POSITION.RIGHT}/>
       <div className='flex-center flex flex-col gap-[2em] text-center'>
         <BrandTitle />
         <InstructionText />
@@ -32,7 +32,7 @@ export const Playlist = () => {
         ))}
       </div>
       <PlayBar />
-      <InfoList />
+      
       <Footer />
     </div>
   )

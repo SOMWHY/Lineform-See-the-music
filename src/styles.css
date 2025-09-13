@@ -75,6 +75,25 @@
   @apply mb-md m-0;
 }
 
+.position-right{
+  @apply top-[50%] right-0 translate-x-[50%] -translate-y-[50%]
+}
+
+.position-left{
+  @apply top-[50%] left-0 -translate-x-[50%] -translate-y-[50%]
+}
+
+.position-top{
+  @apply top-0 right-[50%] translate-x-[50%] -translate-y-[50%]
+}
+
+.position-bottom{
+  @apply bottom-0 right-[50%] translate-x-[50%] translate-y-[50%]
+}
+
+.general-container{
+  @apply bg-bunker-950 text-bunker-100/90 shadow-bunker-900 z-50 shadow-md transition duration-250 ease-in hover:shadow-xl}
+
 * {
   box-sizing: border-box;
 }
