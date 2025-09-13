@@ -1,11 +1,10 @@
-import React from 'react'
+import React from "react"
 
-const InfoText = ({name,children}) => {
+const InfoText = ({ name, children }) => {
   return (
-        <div className='info'>
-          {`-${name}`}: &nbsp;
-          <i>{children}</i>
-        </div>
+    <div className='info pr-lg flex justify-between'>
+      {`-${name}`}:<i>{children}</i>
+    </div>
   )
 }
 

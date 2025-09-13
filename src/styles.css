@@ -58,12 +58,17 @@
   -ms-overflow-style: none; /* IE and Edge */
 }
 
+.progress-bar{
+  @apply relative h-full transition-transform hover:scale-y-150 hover:after:scale-x-150 flex items-center
+}
+
+
 .progress-bar::after {
-  @apply bg-bunker-50 absolute right-0 bottom-[1px] aspect-square w-xs translate-x-[50%] translate-y-[50%] rounded-full content-[""];
+  @apply absolute right-0 aspect-square translate-x-[50%] rounded-full content-[""];
 }
 
 .info {
-  @apply mx-2xs my-2xs w-full text-left text-xs leading-tight font-light;
+  @apply mx-xs my-2xs w-full text-left text-xs leading-tight font-light;
 }
 
 .info-list {

@@ -5,8 +5,20 @@ export const useAudioStore = create((set, get) => ({
   currentSongIndex: undefined,
   playing: false,
   visualizer: "geometry-particles",
+  audioEl:undefined,
+  volume:0.6,
+  curTime:0,
   setVisualizer: visualizer => {
     set({ visualizer })
+  },
+  setAudioEl:(audioEl)=>{
+    set({audioEl})
+  },
+  setVolume:(volume)=>{
+    set({volume})
+  }, 
+  setCurTime:(curTime)=>{
+    set({curTime})
   },
   fetchSongs: async () => {
     const response = await fetch("/audioData.json")

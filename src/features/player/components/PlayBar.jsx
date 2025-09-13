@@ -1,5 +1,3 @@
-import { useEffect, useRef, useState } from "react"
-
 import { useAudioStore } from "../../../store/audioStore"
 import { BsFillVolumeMuteFill } from "react-icons/bs"
 import { HiSpeakerWave } from "react-icons/hi2"
@@ -7,38 +5,22 @@ import ProgressBar from "./ProgressBar"
 import BtnPrev from "./BtnPrev"
 import BtnPlayPause from "./BtnPlayPause"
 import BtnNext from "./BtnNext"
-import initWebAudioApi from "../../../lib/initWebAudioApi"
+
+import AudioEl from "../../../components/AudioEl"
+import VolumeBarContainer from "./VolumeBarContiner"
+import VolumeFill from "./VolumeFill"
 
 export const PlayBar = () => {
-  const audioRef = useRef()
+  const songs = useAudioStore(state => state.songs)
+  const currentSongIndex = useAudioStore(state => state.currentSongIndex)
+  const setCurrentSongIndex = useAudioStore(state => state.setCurrentSongIndex)
+  const playing = useAudioStore(state => state.playing)
+  const setPlaying = useAudioStore(state => state.setPlaying)
+  const volume = useAudioStore(state => state.volume)
+  const setVolume = useAudioStore(state => state.setVolume)
+  const audioEl = useAudioStore(state => state.audioEl)
 
-  const { songs, currentSongIndex, playing, setCurrentSongIndex, setPlaying, audio, setAudio } = useAudioStore()
   const song = typeof currentSongIndex === "number" ? songs[currentSongIndex] : undefined
-
-  const [volume, setVolume] = useState(0.6)//TODO-change to zustand
-  // on every song.uri, play it on mount - if there is no audio element create a new AudioContext
-  useEffect(() => {
-    const audioEl = audioRef.current
-    if (audioEl && song?.uri) {
-      if (!audio) {
-        const { context, source, analyzer, frequencyDataBuffer } = initWebAudioApi(audioEl)
-        setAudio({ context, source, analyzer, frequencyDataBuffer })
-      }
-      audioEl.volume = volume
-      audioEl.play()
-    }
-  }, [song?.uri, volume])
-
-  useEffect(() => {
-    const audio = audioRef.current
-    if (audio && song?.uri) {
-      if (!playing) {
-        audio.pause()
-      } else {
-        audio.play()
-      }
-    }
-  }, [playing])
 
   const prevTrack = () => {
     if (typeof currentSongIndex === "number") {
@@ -65,7 +47,7 @@ export const PlayBar = () => {
   }
 
   const toggleMute = () => {
-    if (audioRef?.current?.volume === 0) setVolume(1)
+    if (audioEl.volume === 0) setVolume(1)
     else setVolume(0)
   }
 
@@ -73,24 +55,25 @@ export const PlayBar = () => {
 
   return (
     <div>
-      <ProgressBar audioEl={audioRef.current} />
+      <ProgressBar />
       <div className='flex-center flex flex-row gap-[2em] text-[2em] leading-[2em]'>
-        <BtnPrev prevTrack={prevTrack} audioRef={audioRef} />
+        <BtnPrev prevTrack={prevTrack} />
 
         <BtnPlayPause playing={playing} togglePlaying={togglePlaying} />
         <BtnNext nextTrack={nextTrack} />
       </div>
 
-      <div onClick={toggleMute} className='mt-xs pr-md flex justify-end'>
-        {song ? isMuted ? <BsFillVolumeMuteFill /> : <HiSpeakerWave /> : ""}
+      <div className='mt-xs px-md h-sm py-xs flex-center flex'>
+        <div className='gap-md flex w-[100%] items-center'>
+          <VolumeBarContainer>
+            <VolumeFill />
+          </VolumeBarContainer>
+          {/* have song->have icon */}
+          {/* icon depends on isMuted */}
+          <span onClick={toggleMute}>{song ? isMuted ? <BsFillVolumeMuteFill /> : <HiSpeakerWave /> : ""}</span>
+        </div>
       </div>
-
-      <audio
-        ref={audioRef}
-        src={song?.uri ?? null}
-        onPause={event => setPlaying(!event.currentTarget.paused)}
-        onPlay={event => setPlaying(!event.currentTarget.paused)}
-      />
+      <AudioEl />
     </div>
   )
 }

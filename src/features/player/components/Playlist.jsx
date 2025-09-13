@@ -1,20 +1,18 @@
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { useAudioStore } from "../../../store/audioStore"
 import { PlayBar } from "./PlayBar"
-import ActiveIndicator from "../../../components/ui/ActiveIndicator"
-import SongTitle from "./SongTitle"
 import InstructionText from "../../../components/ui/InstructionText"
 import BrandTitle from "../../../components/ui/BrandTitle"
 import Footer from "./Footer"
 import ToggleBtn from "../../../components/ui/ToggleBtn"
+import InfoList from "../../../components/InfoList"
+import SongItem from "./SongItem"
 export const Playlist = () => {
-  // TODO
+  //TODO
   //Volume control
   //waveform
-  //progress bar
   const [hideSidebar, setHideSidebar] = useState(false)
-
-  const { songs, setCurrentSongIndex, currentSongIndex } = useAudioStore()
+  const songs = useAudioStore(state => state.songs)
 
   function toggleSideBar() {
     setHideSidebar(curHideState => !curHideState)
@@ -30,19 +28,11 @@ export const Playlist = () => {
       </div>
       <div className='scrollbar-hidden h-[6rem] snap-start overflow-y-scroll scroll-smooth'>
         {songs.map(({ song, artist }, index) => (
-          <div
-            className='p-2xs gap-2xs text-bunker-100/60 hover:bg-bunker-900/80 hover:text-bunker-50/100 flex w-full cursor-pointer items-center justify-start rounded-sm leading-loose hover:italic hover:underline'
-            key={artist + song}
-            onClick={() => setCurrentSongIndex(index)}
-          >
-            <ActiveIndicator songIndex={index} />
-
-            <SongTitle song={song} artist={artist} />
-          </div>
+          <SongItem key={artist + song} index={index} song={song} artist={artist} />
         ))}
       </div>
       <PlayBar />
-
+      <InfoList />
       <Footer />
     </div>
   )
