@@ -1,5 +1,5 @@
 import { useAudioStore } from "../store/audioStore"
-import InfoText from "../components/ui/InfoText"
+import InfoText from "./ui/InfoText"
 import { returnCountedStates, secondToMinuteSecond } from "../lib/utils"
 const InfoList = () => {
   const audioEl = useAudioStore(state => state.audioEl)

@@ -27,12 +27,11 @@ export default function AudioEl() {
       }
       setAudioEl(audioEl)
       audioEl.volume = volume
-  
     }
   }, [song?.uri, volume])
 
   useEffect(() => {
-    const audioEl = audioRef.current
+    const audioEl = audioRef?.current
     if (audioEl && song?.uri) {
       if (!playing) {
         audioEl.pause()
@@ -46,8 +45,8 @@ export default function AudioEl() {
     <audio
       ref={audioRef}
       src={song?.uri ?? null}
-      onPause={event => setPlaying(!event.currentTarget.paused)}
-      onPlay={event => setPlaying(!event.currentTarget.paused)}
+      onPause={e => setPlaying(!e.currentTarget.paused)}
+      onPlay={e => setPlaying(!e.currentTarget.paused)}
     />
   )
 }

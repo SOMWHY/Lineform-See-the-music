@@ -9,6 +9,7 @@ import AudioEl from "../../../components/AudioEl"
 
 export const PlayBar = () => {
   const songs = useAudioStore(state => state.songs)
+  const audioEl = useAudioStore(state => state.audioEl)
   const currentSongIndex = useAudioStore(state => state.currentSongIndex)
   const setCurrentSongIndex = useAudioStore(state => state.setCurrentSongIndex)
   const playing = useAudioStore(state => state.playing)
@@ -26,6 +27,7 @@ export const PlayBar = () => {
 
   const nextTrack = () => {
     if (typeof currentSongIndex === "number") {
+
       if (currentSongIndex < songs.length - 1) {
         setCurrentSongIndex(currentSongIndex + 1)
       } else {
@@ -36,6 +38,7 @@ export const PlayBar = () => {
 
   const togglePlaying = () => {
     setPlaying(!playing)
+   
   }
 
   return (
