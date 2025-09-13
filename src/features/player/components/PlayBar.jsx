@@ -17,6 +17,7 @@ export const PlayBar = () => {
   const playing = useAudioStore(state => state.playing)
   const setPlaying = useAudioStore(state => state.setPlaying)
   const volume = useAudioStore(state => state.volume)
+   const prevVolume = useAudioStore(state => state.prevVolume) // 获取 prevVolume
   const setVolume = useAudioStore(state => state.setVolume)
   const audioEl = useAudioStore(state => state.audioEl)
 
@@ -46,8 +47,8 @@ export const PlayBar = () => {
     setPlaying(!playing)
   }
 
-  const toggleMute = () => {
-    if (audioEl.volume === 0) setVolume(1)
+  const toggleMuted = () => {
+    if (audioEl.volume === 0) setVolume(prevVolume)
     else setVolume(0)
   }
 
@@ -70,7 +71,7 @@ export const PlayBar = () => {
           </VolumeBarContainer>
           {/* have song->have icon */}
           {/* icon depends on isMuted */}
-          <span onClick={toggleMute}>{song ? isMuted ? <BsFillVolumeMuteFill /> : <HiSpeakerWave /> : ""}</span>
+          <span onClick={toggleMuted}>{song ? isMuted ? <BsFillVolumeMuteFill /> : <HiSpeakerWave /> : ""}</span>
         </div>
       </div>
       <AudioEl />

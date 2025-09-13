@@ -5,20 +5,23 @@ export const useAudioStore = create((set, get) => ({
   currentSongIndex: undefined,
   playing: false,
   visualizer: "geometry-particles",
-  audioEl:undefined,
-  volume:0.6,
-  curTime:0,
+  audioEl: undefined,
+  volume: 0.6,
+  prevVolume: 0.6, // 添加 prevVolume 状态
+  curTime: 0,
   setVisualizer: visualizer => {
     set({ visualizer })
   },
-  setAudioEl:(audioEl)=>{
-    set({audioEl})
+  setAudioEl: (audioEl) => {
+    set({ audioEl })
   },
-  setVolume:(volume)=>{
-    set({volume})
+  setVolume: (volume) => {
+    const currentState = get()
+    // 设置音量时同时更新 prevVolume
+    set({ volume, prevVolume: currentState.volume })
   }, 
-  setCurTime:(curTime)=>{
-    set({curTime})
+  setCurTime: (curTime) => {
+    set({ curTime })
   },
   fetchSongs: async () => {
     const response = await fetch("/audioData.json")
