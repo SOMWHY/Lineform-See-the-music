@@ -1,11 +1,12 @@
 import React, { useCallback, useRef, useEffect } from "react"
 import { useAudioStore } from "../../../store/audioStore"
+import DraggableContainer from "../../../components/DraggableContainer"
 
 const ProgressBarContainer = ({ children }) => {
   const audioEl = useAudioStore(state => state.audioEl)
   const setCurTime = useAudioStore(state => state.setCurTime)
   const containerRef = useRef()
-  const isDraggingRef = useRef(false)
+  
 
   const handleProgressChange = useCallback((clientX) => {
     if (!containerRef.current || !audioEl || !audioEl.duration) return
@@ -17,38 +18,15 @@ const ProgressBarContainer = ({ children }) => {
     audioEl.currentTime = clickCurTime
   }, [audioEl, setCurTime])
 
-  const handleMouseDown = useCallback((e) => {
-    isDraggingRef.current = true
-    handleProgressChange(e.clientX)
-  }, [handleProgressChange])
-
-  const handleMouseMove = useCallback((e) => {
-    if (isDraggingRef.current) {
-      handleProgressChange(e.clientX)
-    }
-  }, [handleProgressChange])
-
-  const handleMouseUp = useCallback(() => {
-    isDraggingRef.current = false
-  }, [])
-
-  useEffect(() => {
-    document.addEventListener('mousemove', handleMouseMove)
-    document.addEventListener('mouseup', handleMouseUp)
-    return () => {
-      document.removeEventListener('mousemove', handleMouseMove)
-      document.removeEventListener('mouseup', handleMouseUp)
-    }
-  }, [handleMouseMove, handleMouseUp])
 
   return (
-    <div 
-      ref={containerRef} 
-      onMouseDown={handleMouseDown}
+    <DraggableContainer 
+      containerRef={containerRef} 
+      handleValueChange={handleProgressChange}
       className='bg-bunker-300/60 h-2xs mx-2xs mb-sm mt-lg w-full cursor-pointer'
     >
       {children}
-    </div>
+    </DraggableContainer>
   )
 }
 

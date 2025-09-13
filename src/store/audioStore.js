@@ -12,15 +12,15 @@ export const useAudioStore = create((set, get) => ({
   setVisualizer: visualizer => {
     set({ visualizer })
   },
-  setAudioEl: (audioEl) => {
+  setAudioEl: audioEl => {
     set({ audioEl })
   },
-  setVolume: (volume) => {
+  setVolume: volume => {
     const currentState = get()
     // 设置音量时同时更新 prevVolume
     set({ volume, prevVolume: currentState.volume })
-  }, 
-  setCurTime: (curTime) => {
+  },
+  setCurTime: curTime => {
     set({ curTime })
   },
   fetchSongs: async () => {

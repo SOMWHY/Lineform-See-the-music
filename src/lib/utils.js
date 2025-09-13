@@ -1,9 +1,16 @@
 export function secondToMinuteSecond(seconds) {
-    if (seconds < 60) {
-        return (seconds < 10 ? "0" + seconds : seconds) + "s";
-    } else {
-        const minutes = Math.floor(seconds / 60);
-        const remainingSeconds = seconds % 60;
-        return minutes + "min" + (remainingSeconds > 0 ? (remainingSeconds < 10 ? "0" + remainingSeconds : remainingSeconds) + "s" : "");
-    }
+  if (seconds < 60) {
+    return (seconds < 10 ? "0" + seconds : seconds) + "s"
+  } else {
+    const minutes = Math.floor(seconds / 60)
+    const remainingSeconds = seconds % 60
+    return minutes + "min" + (remainingSeconds > 0 ? (remainingSeconds < 10 ? "0" + remainingSeconds : remainingSeconds) + "s" : "")
+  }
+}
+
+export function returnCountedStates(audioEl, currentSongIndex) {
+  const hasSelectedSong = audioEl && typeof currentSongIndex === "number"
+  const duration = hasSelectedSong ? audioEl?.duration : "--"
+  const hasDuration = typeof duration === "number"
+  return { hasSelectedSong, hasDuration, duration }
 }

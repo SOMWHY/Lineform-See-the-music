@@ -2,7 +2,7 @@
 const InfoText = ({ name, children }) => {
   return (
     <div className='info pr-lg flex justify-between'>
-      {`-${name}`}:<i>{children}</i>
+      {`-${name}`}:<i>{children?.toString()}</i>
     </div>
   )
 }
