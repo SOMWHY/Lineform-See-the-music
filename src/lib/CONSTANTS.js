@@ -9,3 +9,9 @@ export const POSITION={
     TOP:"TOP",
     BOTTOM:"BOTTOM",
 }
+export const SIZE={
+    SMALL:"SMALL",
+    MEDIUM:"MEDIUM",
+    LARGE:"LARGE",
+    EXTRA_LARGE:"EXTRA_LARGE",
+}
