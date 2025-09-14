@@ -10,7 +10,7 @@ const Footer = () => {
       <Divider />
       <ul>
         <ListItem link={"https://space.bilibili.com/394014714"} text='Bilibili' icon={ <AiFillBilibili />}/>
-        <ListItem  link={'https://github.com/SOMWHY/3d-audio-visualizer-starter'} text='Github' icon={ <FaGithub />}/>
+        <ListItem  link={'https://github.com/SOMWHY/Lineform-See-the-music'} text='Github' icon={ <FaGithub />}/>
         <ListItem link={"https://www.youtube.com/@%E7%B4%A2%E5%A7%86%E6%AD%AA"} text='Youtube' icon={ <FaYoutube />}/>
         <ListItem link={'https://music.163.com/#/user/home?id=1517767134'} text='Cloudmusic' icon={ <SiNeteasecloudmusic />}/>
        
