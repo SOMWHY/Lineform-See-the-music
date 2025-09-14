@@ -12,11 +12,11 @@ const ToggleBtn = ({ toggleSideBar, hideSidebar, direction, position }) => {
         Icon = hideSidebar ? <FaAngleRight /> : <FaAngleLeft />
       }
       break
-    case DIRECTION.UP_DOWN: 
-      if (position === POSITION.DOWN) {
+    case DIRECTION.UP_DOWN:
+      if (position === POSITION.BOTTOM) {
         Icon = hideSidebar ? <FaAngleDown /> : <FaAngleUp />
       }
-      if (position === POSITION.UP) {
+      if (position === POSITION.TOP) {
         Icon = hideSidebar ? <FaAngleUp /> : <FaAngleDown />
       }
       break
@@ -27,9 +27,10 @@ const ToggleBtn = ({ toggleSideBar, hideSidebar, direction, position }) => {
   return (
     <div
       onClick={toggleSideBar}
-      className={`bg-bunker-100/60 text-bunker-950/95 flex-center shadow-bunker-300/50 btn hover:text-bunker-300 absolute flex aspect-square w-xl  rounded-full text-2xl shadow-inner ${position===POSITION.RIGHT&&"position-right"} ${position===POSITION.LEFT&&"position-left"} ${position===POSITION.TOP&&"position-top"} ${position===POSITION.BOTTOM&&"position-bottom"} `}
+      className={`bg-bunker-100/60 text-bunker-950/95 flex-center  btn hover:text-bunker-300 absolute flex aspect-square w-xl rounded-full text-2xl  ${position === POSITION.RIGHT && "position-right"} ${position === POSITION.LEFT && "position-left"} ${position === POSITION.TOP && "position-top"} ${position === POSITION.BOTTOM && "position-bottom"} `}
     >
       {Icon}
+     
     </div>
   )
 }

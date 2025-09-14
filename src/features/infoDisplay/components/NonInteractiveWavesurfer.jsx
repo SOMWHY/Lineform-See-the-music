@@ -1,18 +1,13 @@
-import React, { useEffect, useRef } from "react"
-import { useAudioStore } from "../../../store/audioStore" // 请更正为您的store路径
+import React, { useCallback, useEffect, useRef } from "react"
+import { useAudioStore } from "../../../store/audioStore"
 import WavesurferPlayer from "@wavesurfer/react"
 import SpinLoader from "../../../components/ui/SpinLoader"
 
-/**
- * 非交互式音频可视化组件
- * 基于wavesurfer-react和Zustand store状态显示音频波形
- */
 const NonInteractiveWavesurfer = () => {
   const songs = useAudioStore(state => state.songs)
   const currentSongIndex = useAudioStore(state => state.currentSongIndex)
   const curTime = useAudioStore(state => state.curTime)
   const setPlaying = useAudioStore(state => state.setPlaying)
-  const setCurTime = useAudioStore(state => state.setCurTime)
 
   const wavesurferRef = useRef(null)
   const currentSong = currentSongIndex !== undefined ? songs[currentSongIndex] : null
@@ -27,11 +22,15 @@ const NonInteractiveWavesurfer = () => {
     }
   }, [curTime])
 
-  // Wavesurfer事件处理函数
-  const onReady = ws => {
+  const onReady = useCallback(ws => {
     wavesurferRef.current = ws
-    ws.setVolume(0)
-  }
+
+    ws.setVolume(0);
+
+    if (ws.backend && ws.backend.disconnect) {
+      ws.backend.disconnect()
+    }
+  }, [])
 
   const onFinish = () => {
     setPlaying(false)
@@ -58,7 +57,7 @@ const NonInteractiveWavesurfer = () => {
         hideScrollbar={true} // 隐藏滚动条
         autoCenter={true}
         autoScroll={true}
-        minPxPerSec={20}
+        minPxPerSec={100}
         backend='MediaElement'
         // 确保即使有用户交互也不会播放声音
         mediaControls={false}

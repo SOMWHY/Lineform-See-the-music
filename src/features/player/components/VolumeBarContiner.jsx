@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, useEffect } from "react"
+import React, { useCallback, useRef } from "react"
 import { useAudioStore } from "../../../store/audioStore"
 import DraggableContainer from "../../../components/DraggableContainer"
 
