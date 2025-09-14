@@ -1,16 +1,28 @@
-import React from 'react'
+// 使用单例模式管理 AudioContext
+let audioContext = null;
 
-const initWebAudioApi = (audioEl) => {
-          const context = new AudioContext();
-        const source = context.createMediaElementSource(audioEl);
-        const analyzer = context.createAnalyser();
-        analyzer.connect(context.destination);
-        analyzer.fftSize = 256;
+const initWebAudioApi = () => {
+  // 如果已经存在 AudioContext，直接返回
+  if (audioContext) {
+    return audioContext;
+  }
 
-        const frequencyDataBuffer = new Uint8Array(analyzer.frequencyBinCount);
-       
-        source.connect(analyzer);
-  return {context,source,analyzer,frequencyDataBuffer}
-}
+  const AudioContext = window.AudioContext || window.webkitAudioContext;
+  audioContext = new AudioContext();
+  
+  return audioContext;
+};
 
-export default initWebAudioApi
+// 清理函数
+export const cleanupWebAudioApi = () => {
+  if (audioContext) {
+    audioContext.close().then(() => {
+      audioContext = null;
+      console.log("AudioContext 已关闭");
+    }).catch(error => {
+      console.error("关闭 AudioContext 时出错:", error);
+    });
+  }
+};
+
+export default initWebAudioApi;

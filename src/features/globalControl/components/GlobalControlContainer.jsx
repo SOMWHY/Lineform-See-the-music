@@ -14,6 +14,7 @@ const GlobalControlContainer = () => {
       className={`general-container h-5xl absolute top-0 right-0 flex w-5xl ${hideSidebar ? "-translate-y-[100%]" : "translate-y-0"} flex-col gap-[0.5em] p-[1.5em]`}
     >
       <ToggleBtn toggleSideBar={toggleSideBar} hideSidebar={hideSidebar} direction={DIRECTION.UP_DOWN} position={POSITION.BOTTOM} />
+      <h1 className='font-comingSoon text-center'>Extra controls here :D</h1>
       <VolumeControl />
     </div>
   )

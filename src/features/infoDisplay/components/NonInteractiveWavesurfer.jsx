@@ -25,7 +25,7 @@ const NonInteractiveWavesurfer = () => {
   const onReady = useCallback(ws => {
     wavesurferRef.current = ws
 
-    ws.setVolume(0);
+    ws.setVolume(0)
 
     if (ws.backend && ws.backend.disconnect) {
       ws.backend.disconnect()
