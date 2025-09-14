@@ -14,3 +14,5 @@ export function returnCountedStates(audioEl, currentSongIndex) {
   const hasDuration = typeof duration === "number"
   return { hasSelectedSong, hasDuration, duration }
 }
+
+export const randomColor = () =>`rgb(${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)})`

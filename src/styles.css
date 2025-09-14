@@ -72,7 +72,7 @@
 }
 
 .info-list {
-  @apply mb-md m-0;
+  @apply mb-sm m-0 flex flex-col;
 }
 
 .position-right{
