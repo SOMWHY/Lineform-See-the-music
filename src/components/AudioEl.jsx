@@ -1,4 +1,4 @@
-import { useEffect, useRef, useCallback, useState } from "react";
+import { useEffect, useRef, useCallback } from "react";
 import { useAudioStore } from "../store/audioStore";
 import initWebAudioApi, { cleanupWebAudioApi } from "../lib/initWebAudioApi";
 import getAdvancedAudioInfo from "../lib/getAdvancedAudioInfo";
@@ -14,8 +14,6 @@ export default function AudioEl() {
   const volume = useAudioStore(state => state.volume);
 
   const audioRef = useRef();
-  const isConnectedRef = useRef(false); // 跟踪连接状态
-  const [currentSongUri, setCurrentSongUri] = useState(null);
   const song = typeof currentSongIndex === "number" ? songs[currentSongIndex] : undefined;
 
   // 初始化 Web Audio API (只执行一次)
@@ -26,7 +24,6 @@ export default function AudioEl() {
     return () => {
       // 组件卸载时清理
       cleanupWebAudioApi();
-      isConnectedRef.current = false;
     };
   }, []);
 
@@ -41,11 +38,7 @@ export default function AudioEl() {
   // 处理歌曲切换
   useEffect(() => {
     const audioEl = audioRef?.current;
-    if (audioEl && song?.uri && song.uri !== currentSongUri) {
-      // 重置连接状态
-      isConnectedRef.current = false;
-      setCurrentSongUri(song.uri);
-      
+    if (audioEl && song?.uri) {
       // 先暂停当前播放
       audioEl.pause();
       
@@ -56,8 +49,9 @@ export default function AudioEl() {
       // 获取高级音频信息
       getAdvancedAudioInfo(song.uri)
         .then(advancedInfo => {
-          setAudio(prev => ({ ...prev, ...advancedInfo }));
-          console.log(advancedInfo);
+          //Question
+          setAudio(({ ...audio, ...advancedInfo }));
+          console.log(advancedInfo)
         })
         .catch(error => {
           console.error("获取高级音频信息失败:", error);
@@ -103,11 +97,6 @@ export default function AudioEl() {
     const audioEl = audioRef?.current;
     const context = audio?.context;
     
-    // 如果已经连接过，不再重复连接
-    if (isConnectedRef.current) {
-      return;
-    }
-    
     if (audioEl && context && context.state === 'running') {
       try {
         // 创建源节点
@@ -129,8 +118,6 @@ export default function AudioEl() {
           frequencyDataBuffer 
         }));
         
-        // 标记为已连接
-        isConnectedRef.current = true;
         console.log("音频元素已连接到 Web Audio API");
       } catch (error) {
         console.error("连接音频元素到 Web Audio API 失败:", error);
