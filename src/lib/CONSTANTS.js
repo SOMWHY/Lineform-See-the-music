@@ -15,3 +15,8 @@ export const SIZE={
     LARGE:"LARGE",
     EXTRA_LARGE:"EXTRA_LARGE",
 }
+
+export const ZOOM_IN_LEVEL_RANGE={
+    MAX:10000,
+    MIN:0
+}

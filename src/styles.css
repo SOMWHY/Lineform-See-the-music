@@ -49,8 +49,16 @@
 @utility flex-center {
   @apply items-center justify-center;
 }
-@utility btn {
+@utility border-light-blue {
+  @apply border-r-bunker-500 border-r-1;
+}
+
+.btn {
   @apply cursor-pointer transition-all hover:scale-110;
+}
+
+.non-scale-btn {
+  @apply cursor-pointer transition-all;
 }
 
 .scrollbar-hidden {
@@ -58,10 +66,9 @@
   -ms-overflow-style: none; /* IE and Edge */
 }
 
-.progress-bar{
-  @apply relative h-full transition-transform hover:scale-y-150 hover:after:scale-x-150 flex items-center
+.progress-bar {
+  @apply relative flex h-full items-center transition-transform hover:scale-y-150 hover:after:scale-x-150;
 }
-
 
 .progress-bar::after {
   @apply absolute right-0 aspect-square translate-x-[50%] rounded-full content-[""];
@@ -75,24 +82,25 @@
   @apply mb-sm m-0 flex flex-col;
 }
 
-.position-right{
-  @apply top-[50%] right-0 translate-x-[50%] -translate-y-[50%]
+.position-right {
+  @apply top-[50%] right-0 translate-x-[100%] -translate-y-[50%];
 }
 
-.position-left{
-  @apply top-[50%] left-0 -translate-x-[50%] -translate-y-[50%]
+.position-left {
+  @apply top-[50%] left-0 -translate-x-[100%] -translate-y-[50%];
 }
 
-.position-top{
-  @apply top-0 right-[50%] translate-x-[50%] -translate-y-[50%]
+.position-top {
+  @apply top-0 right-[50%] translate-x-[50%] -translate-y-[100%];
 }
 
-.position-bottom{
-  @apply bottom-0 right-[50%] translate-x-[50%] translate-y-[50%]
+.position-bottom {
+  @apply right-[50%] bottom-0 translate-x-[50%] translate-y-[100%];
 }
 
-.general-container{
-  @apply bg-bunker-950 text-bunker-100/90 shadow-bunker-900 z-50 shadow-md transition duration-250 ease-in hover:shadow-xl}
+.general-container {
+  @apply bg-bunker-950 text-bunker-100/90 shadow-bunker-900 z-50 shadow-md transition duration-250 ease-in hover:shadow-xl;
+}
 
 * {
   box-sizing: border-box;

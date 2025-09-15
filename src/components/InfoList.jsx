@@ -23,7 +23,7 @@ const InfoList = () => {
   const formattedRmsDb = audio?.rmsDb ? `${audio.rmsDb?.toFixed(2)}db` : "--"
   const formattedCrestFactor = audio?.crestFactor?.toFixed(2) || "--"
   return (
-    <div className='info-list overflow-y-scroll scrollbar-hidden border-r-bunker-500 border-r-1 '>
+    <div className='info-list overflow-y-scroll overflow-x-hidden scrollbar-hidden border-light-blue '>
       <InfoText name={"currentTime"}>{formattedCurTime}</InfoText>
       <InfoText name={"duration"}>{typeof duration === "number" ? formattedDuration : "--min--s"}</InfoText>
       <InfoText name={"volume"}>{formattedVolume}</InfoText>

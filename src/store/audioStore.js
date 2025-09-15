@@ -9,7 +9,7 @@ export const useAudioStore = create((set, get) => ({
   volume: 0.6,
   prevVolume: 0.6,
   curTime: 0,
-  audio: null,
+  audio: {},
   
   setVisualizer: visualizer => set({ visualizer }),
   setAudioEl: audioEl => set({ audioEl }),

@@ -22,7 +22,7 @@ const VolumeControl = () => {
           <VolumeFill />
         </VolumeBarContainer>
         {/* icon depends on isMuted */}
-        <span onClick={toggleMuted}>{isMuted ? <BsFillVolumeMuteFill /> : <HiSpeakerWave />}</span>
+        <span onClick={toggleMuted}>{isMuted ? <BsFillVolumeMuteFill className="shrink-0"/> : <HiSpeakerWave className="shrink-0"/>}</span>
       </div>
     </div>
   )

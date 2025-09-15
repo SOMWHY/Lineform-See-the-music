@@ -3,12 +3,15 @@ import { useAudioStore } from "../../../store/audioStore"
 import WavesurferPlayer from "@wavesurfer/react"
 import SpinLoader from "../../../components/ui/SpinLoader"
 import { randomColor } from "../../../lib/utils"
+import { useWavesurferStore } from "../../../store/wavesurferStore"
 
 const NonInteractiveWavesurfer = () => {
   const songs = useAudioStore(state => state.songs)
   const currentSongIndex = useAudioStore(state => state.currentSongIndex)
   const curTime = useAudioStore(state => state.curTime)
   const setPlaying = useAudioStore(state => state.setPlaying)
+
+  const zoomInLevel=useWavesurferStore(state=>state.zoomInLevel)
 
   const wavesurferRef = useRef(null)
   const currentSong = currentSongIndex !== undefined ? songs[currentSongIndex] : null
@@ -63,7 +66,7 @@ const NonInteractiveWavesurfer = () => {
           hideScrollbar={true} // 隐藏滚动条
           autoCenter={true}
           autoScroll={true}
-          minPxPerSec={100}
+          minPxPerSec={zoomInLevel}
           backend='MediaElement'
           // 确保即使有用户交互也不会播放声音
           mediaControls={false}

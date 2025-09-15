@@ -27,10 +27,9 @@ const ToggleBtn = ({ toggleSideBar, hideSidebar, direction, position }) => {
   return (
     <div
       onClick={toggleSideBar}
-      className={`bg-bunker-100/60 text-bunker-950/95 flex-center  btn hover:text-bunker-300 absolute flex aspect-square w-xl rounded-full text-2xl  ${position === POSITION.RIGHT && "position-right"} ${position === POSITION.LEFT && "position-left"} ${position === POSITION.TOP && "position-top"} ${position === POSITION.BOTTOM && "position-bottom"} `}
+      className={`bg-bunker-900/90 text-bunker-300/75 flex-center non-scale-btn hover:text-bunker-300/100 absolute flex rounded-full text-2xl ${position === POSITION.RIGHT && "position-right"} ${position === POSITION.LEFT && "position-left"} ${position === POSITION.TOP && "position-top"} ${position === POSITION.BOTTOM && "position-bottom"} ${direction === DIRECTION.UP_DOWN && "h-md w-full"} ${direction === DIRECTION.LEFT_RIGHT && "h-full w-md"} `}
     >
       {Icon}
-     
     </div>
   )
 }

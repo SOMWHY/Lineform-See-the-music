@@ -26,7 +26,7 @@ export const Playlist = () => {
         <BrandTitle />
         <InstructionText />
       </div>
-      <div className='scrollbar-hidden h-[6rem] snap-start overflow-y-scroll scroll-smooth'>
+      <div className='scrollbar-hidden h-[6rem] snap-start overflow-x-hidden overflow-y-scroll scroll-smooth border-light-blue '>
         {songs.map(({ song, artist }, index) => (
           <SongItem key={artist + song} index={index} song={song} artist={artist} />
         ))}
