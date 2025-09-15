@@ -1,20 +1,23 @@
-import React, { useCallback, useRef } from 'react'
-import DraggableContainer from '../../../components/DraggableContainer'
-import { useWavesurferStore } from '../../../store/wavesurferStore'
-import { ZOOM_IN_LEVEL_RANGE } from '../../../lib/CONSTANTS'
+import { useCallback, useRef } from "react"
+import DraggableContainer from "../../../components/DraggableContainer"
+import { ZOOM_IN_LEVEL_RANGE } from "../../../lib/CONSTANTS"
+import { useWavesurferStore } from "../../../store/wavesurferStore"
 
-const ZoomInLevelContainer = ({children}) => {
+const ZoomInLevelContainer = ({ children }) => {
   const setZoomInLevel = useWavesurferStore(state => state.setZoomInLevel)
   const containerRef = useRef()
-  
-  const handleZoomInLevelChange = useCallback((clientX) => {
-    if (!containerRef.current) return
 
-    const { left, width } = containerRef.current.getBoundingClientRect()
-    const clickPosition = Math.max(0, Math.min(1, (clientX - left) / width))
-    const clickZoomInLevel = clickPosition * ZOOM_IN_LEVEL_RANGE.MAX
-    setZoomInLevel(clickZoomInLevel)
-  }, [setZoomInLevel])
+  const handleZoomInLevelChange = useCallback(
+    clientX => {
+      if (!containerRef.current) return
+
+      const { left, width } = containerRef.current.getBoundingClientRect()
+      const clickPosition = Math.max(0, Math.min(1, (clientX - left) / width))
+      const clickZoomInLevel = clickPosition * ZOOM_IN_LEVEL_RANGE.MAX
+      setZoomInLevel(clickZoomInLevel)
+    },
+    [setZoomInLevel]
+  )
 
   return (
     <DraggableContainer

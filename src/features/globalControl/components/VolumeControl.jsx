@@ -1,7 +1,7 @@
 import { BsFillVolumeMuteFill } from "react-icons/bs"
 import { useAudioStore } from "../../../store/audioStore"
-import VolumeBarContainer from "../../player/components/VolumeBarContiner"
-import VolumeFill from "../../player/components/VolumeFill"
+import VolumeBarContainer from "./VolumeBarContiner"
+import VolumeFill from "./VolumeFill"
 import { HiSpeakerWave } from "react-icons/hi2"
 const VolumeControl = () => {
   const volume = useAudioStore(state => state.volume)

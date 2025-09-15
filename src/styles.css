@@ -54,11 +54,11 @@
 }
 
 .btn {
-  @apply cursor-pointer transition-all hover:scale-110;
+  @apply cursor-pointer transition-all hover:scale-110 z-[9999];
 }
 
 .non-scale-btn {
-  @apply cursor-pointer transition-all;
+  @apply cursor-pointer transition-all z-[9999];
 }
 
 .scrollbar-hidden {
@@ -66,12 +66,12 @@
   -ms-overflow-style: none; /* IE and Edge */
 }
 
-.progress-bar {
-  @apply relative flex h-full items-center transition-transform hover:scale-y-150 hover:after:scale-x-150;
+.progress-bar::after {
+  @apply absolute right-0 aspect-square translate-x-[50%] rounded-full content-[""] z-[9999];
 }
 
-.progress-bar::after {
-  @apply absolute right-0 aspect-square translate-x-[50%] rounded-full content-[""];
+.progress-bar {
+  @apply relative flex h-full items-center transition-transform hover:scale-y-150 hover:after:scale-x-150 z-[9999];
 }
 
 .info {

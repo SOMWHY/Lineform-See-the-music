@@ -8,7 +8,9 @@ const ProgressFill = () => {
   const { hasDuration, duration } = returnCountedStates(audioEl, currentSongIndex)
 
   const progressBarWidth = hasDuration ? `${(curTime / duration) * 100}%` : "0%"
-  return <div style={{ width: progressBarWidth }} className='progress-bar bg-froly-500 after:bg-bunker-50 after:w-xs'></div>
+  return (
+    <div style={{ width: progressBarWidth }} className='progress-bar bg-froly-500 after:bg-bunker-50 after:h-full after:min-h-xs'></div>
+  )
 }
 
 export default ProgressFill
