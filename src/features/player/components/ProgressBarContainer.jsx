@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, useEffect } from "react"
+import React, { useCallback, useRef } from "react"
 import { useAudioStore } from "../../../store/audioStore"
 import DraggableContainer from "../../../components/DraggableContainer"
 
@@ -7,9 +7,8 @@ const ProgressBarContainer = ({ children }) => {
   const setCurTime = useAudioStore(state => state.setCurTime)
   const containerRef = useRef()
   
-
   const handleProgressChange = useCallback((clientX) => {
-    if (!containerRef.current || !audioEl || !audioEl.duration) return
+    if (!containerRef.current || !audioEl || !audioEl.duration || audioEl.duration <= 0) return
 
     const { left, width } = containerRef.current.getBoundingClientRect()
     const clickPosition = Math.max(0, Math.min(1, (clientX - left) / width))
@@ -17,7 +16,6 @@ const ProgressBarContainer = ({ children }) => {
     setCurTime(clickCurTime)
     audioEl.currentTime = clickCurTime
   }, [audioEl, setCurTime])
-
 
   return (
     <DraggableContainer 
