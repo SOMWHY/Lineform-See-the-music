@@ -16,3 +16,13 @@ export function returnCountedStates(audioEl, currentSongIndex) {
 }
 
 export const randomColor = () =>`rgb(${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)})`
+
+export function returnClickValue(clientX,containerRef,valueMax){
+
+
+  const { left, width } = containerRef.current.getBoundingClientRect();
+  const clickPosition = Math.max(0, Math.min(1, (clientX - left) / width));
+  const clickVolume = clickPosition * valueMax
+
+  return clickVolume
+}

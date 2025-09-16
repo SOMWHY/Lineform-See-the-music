@@ -20,3 +20,8 @@ export const ZOOM_IN_LEVEL_RANGE={
     MAX:10000,
     MIN:0
 }
+
+export const VOLUME={
+    MAX:1,
+    MIN:0
+}

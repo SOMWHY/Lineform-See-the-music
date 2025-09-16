@@ -1,3 +1,4 @@
+import { VOLUME } from "../../../lib/CONSTANTS"
 import { useAudioStore } from "../../../store/audioStore"
 
 const VolumeFill = () => {
@@ -5,7 +6,7 @@ const VolumeFill = () => {
   const volume = useAudioStore(state => state.volume)
 
 
-  const progressBarWidth = volume ? `${(volume / 1) * 100}%` : "0%"
+  const progressBarWidth = volume ? `${(volume / VOLUME.MAX) * 100}%` : "0%"
   return (
     <div
       style={{ width: progressBarWidth }}

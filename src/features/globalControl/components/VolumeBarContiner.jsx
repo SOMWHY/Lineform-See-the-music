@@ -1,6 +1,8 @@
 import React, { useCallback, useRef } from "react";
 import { useAudioStore } from "../../../store/audioStore";
 import DraggableContainer from "../../../components/DraggableContainer";
+import { VOLUME } from "../../../lib/CONSTANTS";
+import { returnClickValue } from "../../../lib/utils";
 
 const VolumeBarContainer = ({ children }) => {
   const audioEl = useAudioStore(state => state.audioEl);
@@ -10,9 +12,8 @@ const VolumeBarContainer = ({ children }) => {
   const handleVolumeChange = useCallback((clientX) => {
     if (!containerRef.current || !audioEl) return;
 
-    const { left, width } = containerRef.current.getBoundingClientRect();
-    const clickPosition = Math.max(0, Math.min(1, (clientX - left) / width));
-    const clickVolume = clickPosition * 1;
+  
+    const clickVolume = returnClickValue(clientX,containerRef,VOLUME.MAX)
     setVolume(clickVolume);
     audioEl.volume = clickVolume;
   }, [audioEl, setVolume]);
