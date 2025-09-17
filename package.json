@@ -1,7 +1,7 @@
 {
-  "name": "react-three-vite",
+  "name": "lineform-see-the-music",
   "version": "2.0.0",
-  "description": "A simple React Three Fiber + Vite starter.",
+  "description": "A project that helps you see the music.",
   "keywords": [
     "r3f",
     "react",
@@ -11,9 +11,10 @@
     "react three fiber",
     "sandbox"
   ],
-  "author": "SOM_WHY (https://github.com/benjaminmiles)",
+  "author": "SOM_WHY (https://github.com/SOMWHY)",
+  "repository": "github:SOMWHY/Lineform-See-the-music",
   "starterAuthor": "Benjamin Miles <talk@benjaminmiles.com> (https://github.com/benjaminmiles)",
-  "repository": "github:benjaminmiles/react-three-vite",
+  "starterRepository": "github:benjaminmiles/react-three-vite",
   "license": "MIT",
   "dependencies": {
     "@react-three/drei": "10.6.1",
@@ -21,6 +22,7 @@
     "@tailwindcss/vite": "^4.1.13",
     "@wavesurfer/react": "^1.0.11",
     "gh-pages": "^6.3.0",
+    "leva": "^0.10.0",
     "react": "19.1.1",
     "react-dom": "19.1.1",
     "react-icons": "^5.5.0",

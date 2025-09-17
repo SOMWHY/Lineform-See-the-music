@@ -1,35 +1,32 @@
+import { Box, OrbitControls } from "@react-three/drei"
+import { Canvas, useFrame } from "@react-three/fiber"
+import { useRef } from "react"
+import { MovingTube } from "./MovingTube"
+import Scene from "./Scene"
 
-import  { useRef } from "react";
-import { Canvas, useFrame } from "@react-three/fiber";
-import { Box, OrbitControls } from "@react-three/drei";
+// const Scene = () => {
+//   const boxRef = useRef()
+//   useFrame((state, delta) => {
+//     boxRef.current.rotation.y += 0.02
+//   })
 
-
-
-
-
-const Scene = () => {
-  const boxRef = useRef();
-  useFrame((state, delta) => {
-    boxRef.current.rotation.y += 0.02;
-  });
-
-  return (
-    <>
-      <Box ref={boxRef} args={[1, 1, 1]} rotation={[0.5, 0, 0]}>
-        <meshNormalMaterial />
-      </Box>
-      <ambientLight />
-    </>
-  );
-};
+//   return (
+//     <>
+//       <Box ref={boxRef} args={[1, 1, 1]} rotation={[0.5, 0, 0]}>
+//         <meshNormalMaterial />
+//       </Box>
+//       <MovingTube />
+//       <ambientLight />
+//     </>
+//   )
+// }
 
 const VisualOutput = () => {
   return (
-        <Canvas camera={{ fov: 70, position: [0, 0, 3] }}>
-           <OrbitControls />
-           <Scene />
-        
-         </Canvas>
+    <Canvas camera={{ position: [0, -10, 10], fov: 75 }}>
+      <OrbitControls />
+      <Scene />
+    </Canvas>
   )
 }
 

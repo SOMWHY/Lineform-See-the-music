@@ -1,4 +1,3 @@
-// 使用单例模式管理 AudioContext
 let audioContext = null;
 
 const initWebAudioApi = () => {

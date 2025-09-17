@@ -1,6 +1,8 @@
+import { StatsGl } from "@react-three/drei"
+import { Canvas } from "@react-three/fiber"
+import { returnCountedStates, secondToMinuteSecond } from "../lib/utils"
 import { useAudioStore } from "../store/audioStore"
 import InfoText from "./ui/InfoText"
-import { returnCountedStates, secondToMinuteSecond } from "../lib/utils"
 
 const InfoList = () => {
   const audioEl = useAudioStore(state => state.audioEl)
@@ -19,11 +21,12 @@ const InfoList = () => {
   const numberOfChannels = audio?.numberOfChannels || "--"
   const sampleRate = audio?.sampleRate ? `${audio.sampleRate}hz` : "--"
   const formattedLength = audio?.length || "--"
-  const formattedPeakDb =typeof audio?.peakDb==="number" ? `${audio.peakDb?.toFixed(2)}db` : "--"
+  const formattedPeakDb = typeof audio?.peakDb === "number" ? `${audio.peakDb?.toFixed(2)}db` : "--"
   const formattedRmsDb = audio?.rmsDb ? `${audio.rmsDb?.toFixed(2)}db` : "--"
   const formattedCrestFactor = audio?.crestFactor?.toFixed(2) || "--"
   return (
     <div className='info-list overflow-y-scroll overflow-x-hidden scrollbar-hidden border-light-blue '>
+ 
       <InfoText name={"currentTime"}>{formattedCurTime}</InfoText>
       <InfoText name={"duration"}>{typeof duration === "number" ? formattedDuration : "--min--s"}</InfoText>
       <InfoText name={"volume"}>{formattedVolume}</InfoText>
@@ -33,7 +36,6 @@ const InfoList = () => {
       <InfoText name={"peakDb"}>{formattedPeakDb}</InfoText>
       <InfoText name={"rmsDb"}>{formattedRmsDb}</InfoText>
       <InfoText name={"crestFactor"}>{formattedCrestFactor}</InfoText>
-  
     </div>
   )
 }
