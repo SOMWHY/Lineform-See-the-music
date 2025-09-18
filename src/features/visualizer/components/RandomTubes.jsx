@@ -23,7 +23,7 @@ function RandomTube({ index, lineCount, radius, opacity, speed, spread }) {
       );
     }
     return pts;
-  }, [index, lineCount, spread]); // 添加spread依赖
+  }, [index, lineCount, spread]); 
 
   // 创建曲线
   const curve = useMemo(() => new CatmullRomCurve3(points), [points]);
