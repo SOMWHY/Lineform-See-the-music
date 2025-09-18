@@ -6,7 +6,7 @@ export default async function getAdvancedAudioInfo(url) {
   try {
     // 获取音频数据
     const response = await fetch(url)
-    console.log("url", url)
+    console.log("url: ", url)
     const arrayBuffer = await response.arrayBuffer()
     const audioBuffer = await tempContext.decodeAudioData(arrayBuffer)
     tempContext.close()
