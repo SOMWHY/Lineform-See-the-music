@@ -1,65 +1,71 @@
-export default function getAdvancedAudioInfo(url) {
-  return new Promise((resolve, reject) => {
-    fetch(url)
-      .then(response => response.arrayBuffer())
-      .then(arrayBuffer => {
-        // 创建临时 AudioContext 用于解码
-        const AudioContext = window.AudioContext || window.webkitAudioContext
-        const tempContext = new AudioContext()
+export default async function getAdvancedAudioInfo(url) {
+  const AudioContext = window.AudioContext || window.webkitAudioContext
+  const context = new AudioContext()
 
-        return tempContext.decodeAudioData(arrayBuffer).then(audioBuffer => {
-          // 解码完成后关闭临时上下文
-          tempContext.close()
-          return audioBuffer
-        })
-      })
-      .then(audioBuffer => {
-        // 获取第一个声道的数据
-        const channelData = audioBuffer.getChannelData(0)
+  try {
+    // 获取音频数据
+    const response = await fetch(url)
+    const arrayBuffer = await response.arrayBuffer()
+    const audioBuffer = await context.decodeAudioData(arrayBuffer)
 
-        // 计算各种统计信息
-        let peak = 0
-        let sum = 0
-        let sumOfSquares = 0
+    // 计算高级音频信息
+    const channelData = audioBuffer.getChannelData(0)
+    let peak = 0
+    let sum = 0
+    let sumOfSquares = 0
 
-        for (let i = 0; i < channelData.length; i++) {
-          const value = channelData[i]
-          const absValue = Math.abs(value)
+    for (let i = 0; i < channelData.length; i++) {
+      const value = channelData[i]
+      const absValue = Math.abs(value)
 
-          // 峰值
-          if (absValue > peak) {
-            peak = absValue
-          }
+      peak = Math.max(peak, absValue)
+      sum += value
+      sumOfSquares += value * value
+    }
 
-          // 用于RMS和平均值
-          sum += value
-          sumOfSquares += value * value
-        }
+    const rms = Math.sqrt(sumOfSquares / channelData.length)
 
-        const rms = Math.sqrt(sumOfSquares / channelData.length)
+    // 创建音频节点
+    const source = context.createBufferSource()
+    source.buffer = audioBuffer
+    source.loop = true
 
-        resolve({
-          // 基本信息
-          sampleRate: audioBuffer.sampleRate,
-          numberOfChannels: audioBuffer.numberOfChannels,
-          length: audioBuffer.length,
-          duration: audioBuffer.duration,
+    const gain = context.createGain()
+    const analyser = context.createAnalyser()
+    analyser.fftSize = 64
 
-          // 统计信息
-          peakValue: peak,
-          peakDb: 20 * Math.log10(peak),
+    source.connect(analyser)
+    analyser.connect(gain)
+    gain.connect(context.destination)
 
-          rmsValue: rms,
-          rmsDb: 20 * Math.log10(rms),
-          crestFactor: 20 * Math.log10(peak / rms),
+    const frequencyData = new Uint8Array(analyser.frequencyBinCount)
 
-          // 数据可用性标记
-          hasData: channelData.length > 0,
-        })
-      })
-      .catch(error => {
-        console.error("处理音频数据时出错:", error)
-        reject(error)
-      })
-  })
+    return {
+      context,
+      source,
+      gain,
+      analyser,
+      frequencyData,
+      audioBuffer,
+      advancedInfo: {
+        sampleRate: audioBuffer.sampleRate,
+        numberOfChannels: audioBuffer.numberOfChannels,
+        length: audioBuffer.length,
+        duration: audioBuffer.duration,
+        peakValue: peak,
+        peakDb: 20 * Math.log10(peak),
+        rmsValue: rms,
+        rmsDb: 20 * Math.log10(rms),
+        crestFactor: 20 * Math.log10(peak / rms),
+        hasData: channelData.length > 0,
+      },
+      update: () => {
+        analyser.getByteFrequencyData(frequencyData)
+        return frequencyData.reduce((prev, cur) => prev + cur / frequencyData.length, 0)
+      },
+    }
+  } catch (error) {
+    console.error("处理音频数据时出错:", error)
+    throw error
+  }
 }

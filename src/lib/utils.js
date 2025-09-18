@@ -26,3 +26,9 @@ export function returnClickValue(clientX,containerRef,valueMax){
 
   return clickVolume
 }
+
+export function getSongUrl(currentSongIndex,songs){
+  const song=typeof currentSongIndex==="number"?songs[currentSongIndex]:undefined
+  return song?.url
+
+}
