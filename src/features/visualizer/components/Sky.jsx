@@ -13,7 +13,7 @@ export function Sky() {
   const playing = useAudioStore(state => state.playing)
 
   // leva controls
-  const { color, x, y, z, range, ...config } = useControls({
+  const { color, x, y, z, range, ...config } = useControls('Sky',{
     seed: { value: 1, min: 1, max: 100, step: 1 },
     segments: { value: 20, min: 1, max: 80, step: 1 },
     volume: { value: 10, min: 0, max: 100, step: 0.1 },
@@ -24,14 +24,14 @@ export function Sky() {
     x: { value: 10, min: 0, max: 100, step: 1 },
     y: { value: 4, min: 0, max: 100, step: 1 },
     z: { value: 3, min: 0, max: 100, step: 1 },
-    color: "#ffffff",
+    color: "#4c5455",
   })
 
   useFrame((state, delta) => {
     let avg = playing ? update() :0
     console.log(avg)
-    ref.current.rotation.y = 10 * avg + Math.cos(state.clock.elapsedTime / 6) / 6
-    ref.current.rotation.x = 10 * avg + Math.sin(state.clock.elapsedTime / 6) / 6
+    ref.current.rotation.y =  avg/100 + Math.cos(state.clock.elapsedTime / 6) / 6
+    ref.current.rotation.x =  avg/100 + Math.sin(state.clock.elapsedTime / 6) / 6
     cloud0.current.rotation.y -= delta / 3
   })
 
@@ -49,12 +49,20 @@ export function Sky() {
       />
       <group ref={ref}>
         <Clouds material={THREE.MeshLambertMaterial} limit={400} range={range}>
+          {/* 所有云朵使用相同的配置 */}
           <Cloud ref={cloud0} {...config} bounds={[x, y, z]} color={color} />
-          <Cloud {...config} bounds={[x, y, z]} color='#f8f8f8' seed={2} position={[15, 3, 0]} />
-          <Cloud {...config} bounds={[x, y, z]} color='#f0f0f0' seed={3} position={[-15, 2, 0]} />
-          <Cloud {...config} bounds={[x, y, z]} color='#f5f5f5' seed={4} position={[0, 4, -12]} />
-          <Cloud {...config} bounds={[x, y, z]} color='#fafafa' seed={5} position={[0, 3, 12]} />
-          <Cloud concentrate='outside' growth={70} color='#eeeeee' opacity={0.8} seed={0.3} bounds={160} volume={160} />
+          <Cloud {...config} bounds={[x, y, z]} color={color} seed={2} position={[15, 3, 0]} />
+          <Cloud {...config} bounds={[x, y, z]} color={color} seed={3} position={[-15, 2, 0]} />
+          <Cloud {...config} bounds={[x, y, z]} color={color} seed={4} position={[0, 4, -12]} />
+          <Cloud {...config} bounds={[x, y, z]} color={color} seed={5} position={[0, 3, 12]} />
+          <Cloud 
+            {...config} 
+            concentrate='outside' 
+            color={color} 
+            seed={0.3} 
+            bounds={160} 
+            volume={160} 
+          />
         </Clouds>
       </group>
     </>
