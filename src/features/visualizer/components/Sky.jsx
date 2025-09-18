@@ -1,13 +1,18 @@
 import { Cloud, Clouds, Sky as SkyImpl } from "@react-three/drei"
 import { useFrame } from "@react-three/fiber"
 import { useControls } from "leva"
-import { useRef } from "react"
+import { useEffect, useRef } from "react"
 import * as THREE from "three"
+import { useAudioStore } from "../../../store/audioStore"
+import { getSongUrl } from "../../../lib/utils"
 
 export function Sky() {
   const ref = useRef()
   const cloud0 = useRef()
-
+  const songs = useAudioStore(state => state.songs)
+  const currentSongIndex = useAudioStore(state => state.currentSongIndex)
+  const { update } = useAudioStore(state => state.analyser)
+  
   // leva controls
   const { color, x, y, z, range, ...config } = useControls({
     seed: { value: 1, min: 1, max: 100, step: 1 },
@@ -24,8 +29,9 @@ export function Sky() {
   })
 
   useFrame((state, delta) => {
-    ref.current.rotation.y = Math.cos(state.clock.elapsedTime / 6) / 6
-    ref.current.rotation.x = Math.sin(state.clock.elapsedTime / 6) / 6
+    let avg = update()
+    ref.current.rotation.y = 10 * avg + Math.cos(state.clock.elapsedTime / 6) / 6
+    ref.current.rotation.x = 10 * avg + Math.sin(state.clock.elapsedTime / 6) / 6
     cloud0.current.rotation.y -= delta / 3
   })
 
@@ -54,3 +60,5 @@ export function Sky() {
     </>
   )
 }
+
+export default Sky

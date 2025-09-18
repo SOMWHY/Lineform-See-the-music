@@ -9,7 +9,16 @@ export const useAudioStore = create((set, get) => ({
   volume: 0.6,
   prevVolume: 0.6,
   curTime: 0,
-  audio: {},
+  audio: {
+    context: null,
+    source: null,
+    gain: null,
+    analyser: null,
+    frequencyData: null
+  },
+  analyser: {
+    update: () => 0
+  },
   
   setVisualizer: visualizer => set({ visualizer }),
   setAudioEl: audioEl => set({ audioEl }),
@@ -18,17 +27,11 @@ export const useAudioStore = create((set, get) => ({
     set({ volume, prevVolume: currentState.volume });
   },
   setCurTime: curTime => set({ curTime }),
-  
-  // 清理音频节点的 action
-  cleanupAudio: () => {
-    const currentAudio = get().audio;
-    if (currentAudio) {
-      currentAudio.source?.disconnect();
-      currentAudio.analyzer?.disconnect();
-      currentAudio.context?.close().catch(console.error);
-    }
-    set({ audio: null });
-  },
+  setAudio: audio => set(state => ({ audio: { ...state.audio, ...audio } })),
+  setAnalyser: analyser => set(state => ({ analyser: { ...state.analyser, ...analyser } })),
+  setFrequencyData: frequencyData => set(state => ({ 
+    audio: { ...state.audio, frequencyData } 
+  })),
   
   fetchSongs: async () => {
     const response = await fetch("/audioData.json");
@@ -48,7 +51,6 @@ export const useAudioStore = create((set, get) => ({
     set({ currentSongIndex, playing: true });
   },
   
-  setAudio: audio => set({ audio }),
   setPlaying: playing => {
     const { currentSongIndex } = get();
     if (playing && typeof currentSongIndex !== "number") {

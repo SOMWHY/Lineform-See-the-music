@@ -11,26 +11,41 @@ export default function AudioEl() {
   const setAudio = useAudioStore(state => state.setAudio)
   const setAudioEl = useAudioStore(state => state.setAudioEl)
   const volume = useAudioStore(state => state.volume)
+  const setAnalyser = useAudioStore(state => state.setAnalyser)
+  const setFrequencyData = useAudioStore(state => state.setFrequencyData)
 
   const audioRef = useRef()
   const song = typeof currentSongIndex === "number" ? songs[currentSongIndex] : undefined
 
-  // // 初始化 Web Audio API (只执行一次)
-  // useEffect(() => {
-  //   const context = initWebAudioApi();
-  //   setAudio({ context });
-
-  //   return () => {
-  //     // 组件卸载时清理
-  //     cleanupWebAudioApi();
-  //   };
-  // }, []);
+  useEffect(() => {
+    getAdvancedAudioInfo(song?.uri).then(info => setAudio({ ...audio, ...info }))
+  }, [song?.uri])
 
   // 设置音频元素引用
   useEffect(() => {
     const audioEl = audioRef?.current
     if (audioEl) {
       setAudioEl(audioEl)
+
+      // 初始化Web Audio API
+      const AudioContext = window.AudioContext || window.webkitAudioContext
+      const context = new AudioContext()
+      const source = context.createMediaElementSource(audioEl)
+      const gain = context.createGain()
+      const analyser = context.createAnalyser()
+      analyser.fftSize = 64
+
+      // 连接节点: source -> analyser -> gain -> destination
+      source.connect(analyser)
+      analyser.connect(gain)
+      gain.connect(context.destination)
+
+      // 存储到状态
+      setAudio({ ...audio, context, source, gain, analyser })
+
+      // 创建频率数据数组
+      const frequencyData = new Uint8Array(analyser.frequencyBinCount)
+      setFrequencyData(frequencyData)
     }
   }, [])
 
@@ -44,9 +59,6 @@ export default function AudioEl() {
       // 设置新的音频源
       audioEl.src = song?.uri
       audioEl.load()
-
-      // 获取高级音频信息
-      getAdvancedAudioInfo(song?.uri).then(({ advancedInfo }) => setAudio({ ...audio, ...advancedInfo }))
 
       // 如果之前是播放状态，自动播放新歌曲
       if (playing) {
@@ -66,6 +78,9 @@ export default function AudioEl() {
     if (audioEl) {
       audioEl.volume = volume
     }
+    if (audio.gain) {
+      audio.gain.gain.value = volume
+    }
   }, [volume])
 
   // 控制播放/暂停
@@ -73,6 +88,10 @@ export default function AudioEl() {
     const audioEl = audioRef?.current
     if (audioEl && song?.uri) {
       if (playing) {
+        // 恢复音频上下文（如果被暂停）
+        if (audio.context && audio.context.state === "suspended") {
+          audio.context.resume()
+        }
         audioEl.play().catch(error => {
           console.error("播放失败:", error)
           setPlaying(false)
@@ -83,54 +102,21 @@ export default function AudioEl() {
     }
   }, [playing])
 
-  // // 连接音频元素到 Web Audio API (在音频元素就绪后执行)
-  // const connectAudioToWebAudio = useCallback(() => {
-  //   const audioEl = audioRef?.current;
-  //   const context = audio?.context;
+  // 更新频率数据的函数
+  const updateFrequencyData = () => {
+    if (audio.analyser && audio.frequencyData) {
+      audio.analyser.getByteFrequencyData(audio.frequencyData)
+      return audio.frequencyData.reduce((prev, cur) => prev + cur / audio.frequencyData.length, 0)
+    }
+    return 0
+  }
 
-  //   if (audioEl && context && context.state === 'running') {
-  //     try {
-  //       // 创建源节点
-  //       const source = context.createMediaElementSource(audioEl);
-  //       const analyzer = context.createAnalyser();
-  //       analyzer.fftSize = 256;
-
-  //       const frequencyDataBuffer = new Uint8Array(analyzer.frequencyBinCount);
-
-  //       // 连接节点
-  //       source.connect(analyzer);
-  //       analyzer.connect(context.destination);
-
-  //       // 更新状态
-  //       setAudio(prev => ({
-  //         ...prev,
-  //         source,
-  //         analyzer,
-  //         frequencyDataBuffer
-  //       }));
-
-  //       console.log("音频元素已连接到 Web Audio API");
-  //     } catch (error) {
-  //       console.error("连接音频元素到 Web Audio API 失败:", error);
-  //     }
-  //   }
-  // }, [audio?.context]);
-
-  // // 当音频元素就绪时连接 Web Audio API
-  // useEffect(() => {
-  //   const audioEl = audioRef?.current;
-  //   if (audioEl) {
-  //     const handleCanPlay = () => {
-  //       connectAudioToWebAudio();
-  //     };
-
-  //     audioEl.addEventListener('canplay', handleCanPlay);
-
-  //     return () => {
-  //       audioEl.removeEventListener('canplay', handleCanPlay);
-  //     };
-  //   }
-  // }, [connectAudioToWebAudio]);
+  // 存储更新函数到状态
+  useEffect(() => {
+    if (audio.context) {
+      setAnalyser({ update: updateFrequencyData })
+    }
+  }, [audio.context, audio.analyser, audio.frequencyData])
 
   return (
     <audio
