@@ -25,3 +25,10 @@ export const VOLUME={
     MAX:1,
     MIN:0
 }
+
+export const VISUALIZER={
+    LINE_FORM:"LINE_FORM"
+}
+export const BACKGROUND={
+    SKY:"SKY"
+}

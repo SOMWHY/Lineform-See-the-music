@@ -4,6 +4,7 @@ import ToggleBtn from "../../../components/ui/ToggleBtn"
 import { DIRECTION, POSITION } from "../../../lib/CONSTANTS"
 import NonInteractiveWavesurfer from "../../infoDisplay/components/NonInteractiveWavesurfer"
 import ZoomInLevelControl from "./ZoomInLevelControl"
+import VisualizerAndBackgroundSelect from "./VisualizerAndBackgroundSelect"
 
 const GlobalControlContainer = () => {
   const [hideSidebar, setHideSidebar] = useState(false)
@@ -18,6 +19,7 @@ const GlobalControlContainer = () => {
       <h1 className='font-comingSoon text-center'>Extra controls here :D</h1>
       <VolumeControl />
       <ZoomInLevelControl/>
+      <VisualizerAndBackgroundSelect/>
     </div>
   )
 }

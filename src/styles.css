@@ -82,6 +82,14 @@
   @apply mb-sm m-0 flex flex-col;
 }
 
+.select{
+  @apply outline-0 focus:outline-1 outline-bunker-800/60;
+}
+
+.option{
+  @apply bg-bunker-900 text-bunker-100 text-sm text-center;
+}
+
 .position-right {
   @apply top-[50%] right-0 translate-x-[100%] -translate-y-[50%];
 }

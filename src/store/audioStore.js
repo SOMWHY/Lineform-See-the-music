@@ -4,7 +4,6 @@ export const useAudioStore = create((set, get) => ({
   songs: [],
   currentSongIndex: undefined,
   playing: false,
-  visualizer: "lineform",
   audioEl: undefined,
   volume: 0.6,
   prevVolume: 0.6,
