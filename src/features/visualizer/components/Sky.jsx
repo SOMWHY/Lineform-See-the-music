@@ -30,8 +30,8 @@ export function Sky() {
   useFrame((state, delta) => {
     // let avg = playing ? update() :0
     // console.log(avg)
-    ref.current.rotation.y =   Math.cos(state.clock.elapsedTime / 6) / 6
-    ref.current.rotation.x =   Math.sin(state.clock.elapsedTime / 6) / 6
+    ref.current.rotation.y =  Math.cos(state.clock.elapsedTime / 6) / 6
+    ref.current.rotation.x =  Math.sin(state.clock.elapsedTime / 6) / 6
     cloud0.current.rotation.y -= delta / 3
   })
 

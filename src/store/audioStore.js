@@ -13,10 +13,18 @@ export const useAudioStore = create((set, get) => ({
     source: null,
     gain: null,
     analyser: null,
-    frequencyData: null
+    frequencyData: null,
+    timeDomainData: null // 新增时域数据存储
   },
   analyser: {
-    update: () => 0
+    update: () => ({
+      frequencyData: new Uint8Array(0),
+      timeDomainData: new Uint8Array(0),
+      rms: 0, // 实时能量值
+      peak: 0, // 实时峰值
+      sampleRate: 44100,
+      frequencyBinCount: 0
+    })
   },
   
   setVisualizer: visualizer => set({ visualizer }),
@@ -30,6 +38,9 @@ export const useAudioStore = create((set, get) => ({
   setAnalyser: analyser => set(state => ({ analyser: { ...state.analyser, ...analyser } })),
   setFrequencyData: frequencyData => set(state => ({ 
     audio: { ...state.audio, frequencyData } 
+  })),
+  setTimeDomainData: timeDomainData => set(state => ({ 
+    audio: { ...state.audio, timeDomainData } 
   })),
   
   fetchSongs: async () => {

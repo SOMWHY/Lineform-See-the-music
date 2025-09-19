@@ -1,4 +1,4 @@
-import  { useEffect,useRef, useMemo } from 'react';
+import { useEffect, useRef, useMemo } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { Vector3, CatmullRomCurve3, TubeGeometry, Color } from 'three';
 import { useControls } from 'leva';
@@ -98,14 +98,29 @@ export function RandomTubes() {
   const { update } = useAudioStore(state => state.analyser);
   const playing = useAudioStore(state => state.playing);
   
-  // 使用Leva创建控制面板，添加spread参数
-  const { lineCount: baseLineCount, radius, opacity: baseOpacity, speed: baseSpeed, spread: baseSpread, audioInfluence } = useControls('Random Tubes', {
+  // 使用Leva创建控制面板
+  const { 
+    lineCount: baseLineCount, 
+    radius, 
+    opacity: baseOpacity, 
+    speed: baseSpeed, 
+    spread: baseSpread, 
+    audioInfluence,
+    rmsSensitivity,
+    peakSensitivity,
+    freqSensitivity,
+    timeSensitivity
+  } = useControls('Random Tubes', {
     lineCount: { value: 12, min: 1, max: 30, step: 1 },
     radius: { value: 0.03, min: 0.01, max: 0.1, step: 0.01 },
     opacity: { value: 0.6, min: 0.1, max: 1, step: 0.05 },
     speed: { value: 1, min: 0.1, max: 3, step: 0.1 },
     spread: { value: 15, min: 5, max: 450, step: 1 },
-    audioInfluence: { value: 0.5, min: 0, max: 1, step: 0.1 }
+    audioInfluence: { value: 0.8, min: 0, max: 1, step: 0.1 }, // 增加默认影响值
+    rmsSensitivity: { value: 2.0, min: 0.5, max: 5, step: 0.1 }, // RMS灵敏度
+    peakSensitivity: { value: 1.5, min: 0.5, max: 5, step: 0.1 }, // 峰值灵敏度
+    freqSensitivity: { value: 1.0, min: 0.5, max: 5, step: 0.1 }, // 频率灵敏度
+    timeSensitivity: { value: 0.8, min: 0.5, max: 5, step: 0.1 } // 时域灵敏度
   });
 
   // 使用ref存储动态变化的值
@@ -116,27 +131,65 @@ export function RandomTubes() {
 
   useFrame(() => {
     if (playing && audioInfluence > 0) {
-      const avg = update();
+      const audioData = update();
+      const { rms, peak, frequencyData, timeDomainData } = audioData;
+      
+      // 增强音频数据的影响
+      const enhancedRMS = Math.pow(rms, rmsSensitivity);
+      const enhancedPeak = Math.pow(peak / 255, peakSensitivity);
+      
+      // 计算频率数据的动态范围
+      let freqDynamic = 0;
+      if (frequencyData && frequencyData.length > 0) {
+        let min = 255;
+        let max = 0;
+        for (let i = 0; i < frequencyData.length; i++) {
+          if (frequencyData[i] < min) min = frequencyData[i];
+          if (frequencyData[i] > max) max = frequencyData[i];
+        }
+        freqDynamic = Math.pow((max - min) / 255, freqSensitivity);
+      }
+      
+      // 计算时域数据的动态范围
+      let timeDynamic = 0;
+      if (timeDomainData && timeDomainData.length > 0) {
+        let min = 255;
+        let max = 0;
+        for (let i = 0; i < timeDomainData.length; i++) {
+          if (timeDomainData[i] < min) min = timeDomainData[i];
+          if (timeDomainData[i] > max) max = timeDomainData[i];
+        }
+        timeDynamic = Math.pow((max - min) / 255, timeSensitivity);
+      }
+      
+      // 计算综合音频影响 - 使用非线性组合增强效果
+      const combinedAudioEffect = (
+        enhancedRMS * 0.4 + 
+        enhancedPeak * 0.3 + 
+        freqDynamic * 0.2 + 
+        timeDynamic * 0.1
+      );
+      
       // 计算音频影响因子
       const influence = audioInfluence;
       
-      // 将音频数据映射到不同的参数范围，并与基础值混合
+      // 使用非线性映射函数增强视觉效果
       lineCountRef.current = Math.floor(
         baseLineCount * (1 - influence) + 
-        Math.max(1, Math.min(30, Math.floor(avg / 3))) * influence
+        (5 + Math.floor(Math.pow(combinedAudioEffect, 1.5) * 25)) * influence
       );
       
       opacityRef.current = 
         baseOpacity * (1 - influence) + 
-        Math.max(0.1, Math.min(1.0, avg / 100)) * influence;
+        (0.2 + Math.pow(combinedAudioEffect, 1.2) * 0.8) * influence;
       
       speedRef.current = 
         baseSpeed * (1 - influence) + 
-        Math.max(0.1, Math.min(3.0, avg / 33)) * influence;
+        (0.2 + Math.pow(combinedAudioEffect, 1.3) * 2.8) * influence;
       
       spreadRef.current = 
         baseSpread * (1 - influence) + 
-        Math.max(5, Math.min(50, avg / 2)) * influence;
+        (5 + Math.pow(combinedAudioEffect, 1.4) * 45) * influence;
     } else {
       // 如果没有播放音乐或影响度为0，使用Leva控制的值
       lineCountRef.current = baseLineCount;
@@ -155,7 +208,7 @@ export function RandomTubes() {
           key={i} 
           index={i} 
           lineCount={lineCountRef.current}
-          radius={radius} // 保持Leva控制的半径
+          radius={radius}
           opacity={opacityRef.current}
           speed={speedRef.current}
           spread={spreadRef.current}
