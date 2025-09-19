@@ -1,7 +1,8 @@
-import React, { useRef, useMemo, useState, useEffect } from 'react';
+import  { useEffect,useRef, useMemo } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { Vector3, CatmullRomCurve3, TubeGeometry, Color } from 'three';
 import { useControls } from 'leva';
+import { useAudioStore } from "../../../store/audioStore";
 
 function RandomTube({ index, lineCount, radius, opacity, speed, spread }) {
   const meshRef = useRef();
@@ -94,33 +95,75 @@ function RandomTube({ index, lineCount, radius, opacity, speed, spread }) {
 }
 
 export function RandomTubes() {
+  const { update } = useAudioStore(state => state.analyser);
+  const playing = useAudioStore(state => state.playing);
+  
   // 使用Leva创建控制面板，添加spread参数
-  const { lineCount, radius, opacity, speed, spread } = useControls('Random Tubes', {
+  const { lineCount: baseLineCount, radius, opacity: baseOpacity, speed: baseSpeed, spread: baseSpread, audioInfluence } = useControls('Random Tubes', {
     lineCount: { value: 12, min: 1, max: 30, step: 1 },
     radius: { value: 0.03, min: 0.01, max: 0.1, step: 0.01 },
     opacity: { value: 0.6, min: 0.1, max: 1, step: 0.05 },
     speed: { value: 1, min: 0.1, max: 3, step: 0.1 },
-    spread: { value: 15, min: 5, max: 450, step: 1 }
+    spread: { value: 15, min: 5, max: 450, step: 1 },
+    audioInfluence: { value: 0.5, min: 0, max: 1, step: 0.1 }
+  });
+
+  // 使用ref存储动态变化的值
+  const lineCountRef = useRef(baseLineCount);
+  const opacityRef = useRef(baseOpacity);
+  const speedRef = useRef(baseSpeed);
+  const spreadRef = useRef(baseSpread);
+
+  useFrame(() => {
+    if (playing && audioInfluence > 0) {
+      const avg = update();
+      // 计算音频影响因子
+      const influence = audioInfluence;
+      
+      // 将音频数据映射到不同的参数范围，并与基础值混合
+      lineCountRef.current = Math.floor(
+        baseLineCount * (1 - influence) + 
+        Math.max(1, Math.min(30, Math.floor(avg / 3))) * influence
+      );
+      
+      opacityRef.current = 
+        baseOpacity * (1 - influence) + 
+        Math.max(0.1, Math.min(1.0, avg / 100)) * influence;
+      
+      speedRef.current = 
+        baseSpeed * (1 - influence) + 
+        Math.max(0.1, Math.min(3.0, avg / 33)) * influence;
+      
+      spreadRef.current = 
+        baseSpread * (1 - influence) + 
+        Math.max(5, Math.min(50, avg / 2)) * influence;
+    } else {
+      // 如果没有播放音乐或影响度为0，使用Leva控制的值
+      lineCountRef.current = baseLineCount;
+      opacityRef.current = baseOpacity;
+      speedRef.current = baseSpeed;
+      spreadRef.current = baseSpread;
+    }
   });
 
   // 创建多条线
   const tubes = useMemo(() => {
     const tubesArray = [];
-    for (let i = 0; i < lineCount; i++) {
+    for (let i = 0; i < lineCountRef.current; i++) {
       tubesArray.push(
         <RandomTube 
           key={i} 
           index={i} 
-          lineCount={lineCount}
-          radius={radius}
-          opacity={opacity}
-          speed={speed}
-          spread={spread}
+          lineCount={lineCountRef.current}
+          radius={radius} // 保持Leva控制的半径
+          opacity={opacityRef.current}
+          speed={speedRef.current}
+          spread={spreadRef.current}
         />
       );
     }
     return tubesArray;
-  }, [lineCount, radius, opacity, speed, spread]);
+  }, [lineCountRef.current, radius, opacityRef.current, speedRef.current, spreadRef.current]);
 
   return <>{tubes}</>;
 }

@@ -9,8 +9,8 @@ export function Sky() {
   const ref = useRef()
   const cloud0 = useRef()
 
-  const { update } = useAudioStore(state => state.analyser)
-  const playing = useAudioStore(state => state.playing)
+  // const { update } = useAudioStore(state => state.analyser)
+  // const playing = useAudioStore(state => state.playing)
 
   // leva controls
   const { color, x, y, z, range, ...config } = useControls('Sky',{
@@ -28,10 +28,10 @@ export function Sky() {
   })
 
   useFrame((state, delta) => {
-    let avg = playing ? update() :0
-    console.log(avg)
-    ref.current.rotation.y =  avg/100 + Math.cos(state.clock.elapsedTime / 6) / 6
-    ref.current.rotation.x =  avg/100 + Math.sin(state.clock.elapsedTime / 6) / 6
+    // let avg = playing ? update() :0
+    // console.log(avg)
+    ref.current.rotation.y =   Math.cos(state.clock.elapsedTime / 6) / 6
+    ref.current.rotation.x =   Math.sin(state.clock.elapsedTime / 6) / 6
     cloud0.current.rotation.y -= delta / 3
   })
 

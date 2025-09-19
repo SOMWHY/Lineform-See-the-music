@@ -1,5 +1,5 @@
 export default async function getAdvancedAudioInfo(url, context) {
-  if (url === undefined || context === undefined) return
+  if (!url || !context) return
 
   try {
     // 获取音频数据
