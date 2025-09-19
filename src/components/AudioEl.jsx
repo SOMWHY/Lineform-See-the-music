@@ -17,14 +17,15 @@ export default function AudioEl() {
   const audioRef = useRef()
   const song = typeof currentSongIndex === "number" ? songs[currentSongIndex] : undefined
 
-  useEffect(() => {
-    getAdvancedAudioInfo(song?.uri).then(info => setAudio({ ...audio, ...info }))
-  }, [song?.uri])
+  // useEffect(() => {
+  //   getAdvancedAudioInfo(song?.uri).then(info => setAudio({ ...audio, ...info }))
+  // }, [song?.uri])
 
   // 设置音频元素引用
   useEffect(() => {
     const audioEl = audioRef?.current
     if (audioEl) {
+      console.log(audioEl)
       setAudioEl(audioEl)
 
       // 初始化Web Audio API
