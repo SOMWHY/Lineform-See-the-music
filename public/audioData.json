@@ -13,6 +13,13 @@
       "song": "生活",
       "album": "Osm",
       "genre": "mid-west emo"
+    },
+    {
+      "uri": "/audio/somethingInTheSummerRain(Remastered).mp3",
+      "artist": "Sadness",
+      "song": "something in the summer rain(remastered)",
+      "album": "sadness // abriction",
+      "genre": "mid-west emo"
     }
   ]
 }
