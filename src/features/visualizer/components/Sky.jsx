@@ -24,7 +24,7 @@ export function Sky() {
     x: { value: 10, min: 0, max: 100, step: 1 },
     y: { value: 4, min: 0, max: 100, step: 1 },
     z: { value: 3, min: 0, max: 100, step: 1 },
-    color: "#4c5455",
+    color: "#8dbac1",
   })
 
   useFrame((state, delta) => {
