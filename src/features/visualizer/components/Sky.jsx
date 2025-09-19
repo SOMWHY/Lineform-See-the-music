@@ -48,7 +48,7 @@ export function Sky() {
         turbidity={4}
       />
       <group ref={ref}>
-        <Clouds material={THREE.MeshLambertMaterial} limit={400} range={range}>
+        <Clouds texture={'/textures/cloud.png'} material={THREE.MeshLambertMaterial} limit={400} range={range}>
           {/* 所有云朵使用相同的配置 */}
           <Cloud ref={cloud0} {...config} bounds={[x, y, z]} color={color} />
           <Cloud {...config} bounds={[x, y, z]} color={color} seed={2} position={[15, 3, 0]} />
