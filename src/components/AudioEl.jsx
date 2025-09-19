@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react"
 import getAdvancedAudioInfo from "../lib/getAdvancedAudioInfo"
+import { initContext } from "../lib/initContext"
 import { useAudioStore } from "../store/audioStore"
-
 export default function AudioEl() {
   const songs = useAudioStore(state => state.songs)
   const currentSongIndex = useAudioStore(state => state.currentSongIndex)
@@ -17,10 +17,6 @@ export default function AudioEl() {
   const audioRef = useRef()
   const song = typeof currentSongIndex === "number" ? songs[currentSongIndex] : undefined
 
-  // useEffect(() => {
-  //   getAdvancedAudioInfo(song?.uri).then(info => setAudio({ ...audio, ...info }))
-  // }, [song?.uri])
-
   // 设置音频元素引用
   useEffect(() => {
     const audioEl = audioRef?.current
@@ -29,13 +25,11 @@ export default function AudioEl() {
       setAudioEl(audioEl)
 
       // 初始化Web Audio API
-      const AudioContext = window.AudioContext || window.webkitAudioContext
-      const context = new AudioContext()
+      const context = initContext()
       const source = context.createMediaElementSource(audioEl)
       const gain = context.createGain()
       const analyser = context.createAnalyser()
       analyser.fftSize = 64
-
       // 连接节点: source -> analyser -> gain -> destination
       source.connect(analyser)
       analyser.connect(gain)
@@ -50,6 +44,11 @@ export default function AudioEl() {
     }
   }, [])
 
+  useEffect(() => {
+    if(audio?.context)
+    getAdvancedAudioInfo(song?.uri, audio?.context).then(info => setAudio({ ...audio, ...info }))
+    
+  }, [song?.uri])
   // 处理歌曲切换
   useEffect(() => {
     const audioEl = audioRef?.current
