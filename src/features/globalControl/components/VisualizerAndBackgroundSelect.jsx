@@ -6,26 +6,31 @@ const VisualizerAndBackgroundSelect = () => {
   const visualizer = useCanvasStore(state => state.visualizer)
   const setBackground = useCanvasStore(state => state.setBackground)
   const setVisualizer = useCanvasStore(state => state.setVisualizer)
-  const setShowStatsGl = useCanvasStore(state => state.setShowStatsGl)
-  const showStatsGl = useCanvasStore(state => state.showStatsGl)
+
   return (
     <div className='mt-xs px-md  py-xs flex-center flex '>
       <div className='gap-2xs flex flex-col w-[100%]  justify-center items-center font-comingSoon tracking-tight text-lg'>
         <div className='flex  w-full justify-between pr-lg'>
           <label htmlFor='background'>Background:</label>
           <select className='select' name='background' id='background' value={background} onChange={e => setBackground(e.target.value)}>
-            <option className='option' value='none'>
+            <option className='option' value={BACKGROUND.NONE}>
               none
             </option>
             <option className='option' value={BACKGROUND.SKY}>
               sky
+            </option>
+            <option className='option' value={BACKGROUND.GRASS}>
+              grass
+            </option>
+            <option className='option' value={BACKGROUND.CITY}>
+              city
             </option>
           </select>
         </div>
         <div className='flex w-full justify-between pr-lg'>
           <label htmlFor='visualizer'>Visualizer:</label>
           <select className='select' name='visualizer' id='visualizer' value={visualizer} onChange={e => setVisualizer(e.target.value)}>
-            <option className='option' value='none'>
+            <option className='option' value={VISUALIZER.NONE}>
               none
             </option>
             <option className='option' value={VISUALIZER.LINE_FORM}>

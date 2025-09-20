@@ -27,9 +27,11 @@ export const VOLUME={
 }
 
 export const VISUALIZER={
-    LINE_FORM:"LINE_FORM"
+    NONE:"NONE",
+    LINE_FORM:"LINE_FORM",
 }
 export const BACKGROUND={
+    NONE:"NONE",
     SKY:"SKY",
     GRASS:"GRASS",
     CITY:"CITY",
