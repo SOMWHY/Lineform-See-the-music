@@ -29,38 +29,38 @@ npm run dev
 
 ## Folder structure
 
-📦public
-┣ 📂audio
-┣ 📂textures
-┃ ┣ 📂grass
-┃ ┗ 📂sky
+📦public  
+┣ 📂audio  
+┣ 📂textures  
+┃ ┣ 📂grass  
+┃ ┗ 📂sky  
 ┣ 📜audioData.json
 
-📦src
-┣ 📂assets
-┃ ┗ 📂fonts
-┣ 📂components
-┃ ┣ 📂ui
-┣ 📂features
-┃ ┣ 📂globalControl
-┃ ┃ ┗ 📂components
-┃ ┣ 📂infoDisplay
-┃ ┃ ┗ 📂components
-┃ ┣ 📂player
-┃ ┃ ┗ 📂components
-┃ ┗ 📂visualizer
-┃ ┃ ┗ 📂components
-┣ 📂hooks
-┣ 📂lib
-┣ 📂store
-┣ 📜App.jsx
-┣ 📜index.jsx
-┗ 📜styles.css
+📦src  
+┣ 📂assets  
+┃ ┗ 📂fonts  
+┣ 📂components  
+┃ ┣ 📂ui  
+┣ 📂features  
+┃ ┣ 📂globalControl  
+┃ ┃ ┗ 📂components  
+┃ ┣ 📂infoDisplay  
+┃ ┃ ┗ 📂components  
+┃ ┣ 📂player  
+┃ ┃ ┗ 📂components  
+┃ ┗ 📂visualizer  
+┃ ┃ ┗ 📂components  
+┣ 📂hooks  
+┣ 📂lib  
+┣ 📂store  
+┣ 📜App.jsx  
+┣ 📜index.jsx  
+┗ 📜styles.css  
 
 ## Update songs
 
-📦public
-┣ 📂audio
+📦public  
+┣ 📂audio  
 ┣ 📜audioData.json
 
 Add your songs(.mp3) here in the audio folder, then update audioData.json. You can write "unknown" if you are not sure about the genre.
@@ -76,14 +76,14 @@ When you commit or submit a pull request, please briefly describe what feature y
 1. Add a folder for new feature
    If you want to add new feature, go to 'features' folder and add
    a folder below for new feature. The name of folder should be same as your feature name. Also add a 'components' folder.
-   📂featureName
+   📂featureName  
    ┗ 📂components
 
 2. Then continue your work
 
 ### Add a new 3d background
 
-📦lib
+📦lib  
 ┣ 📜CONSTANTS.js
 
 ```js
@@ -97,9 +97,9 @@ export const BACKGROUND = {
 }
 ```
 
-📦features
-┣ 📂globalControl
-┃ ┗ 📂components
+📦features  
+┣ 📂globalControl  
+┃ ┗ 📂components  
 ┃ ┃ ┣ 📜VisualizerAndBackgroundSelect.jsx
 
 ```js
@@ -110,19 +110,19 @@ export const BACKGROUND = {
 </select>
 ```
 
-📦features
-┗ 📂visualizer
-┃ ┗ 📂components
-┃ ┃ ┣ 📜City.jsx
-┃ ┃ ┣ 📜Grass.jsx
-┃ ┃ ┣ 📜Sky.jsx
+📦features  
+┗ 📂visualizer  
+┃ ┗ 📂components  
+┃ ┃ ┣ 📜City.jsx  
+┃ ┃ ┣ 📜Grass.jsx  
+┃ ┃ ┣ 📜Sky.jsx  
 ┃ ┃ ┣ 📜YourBackground.jsx
 
 Then you can start to write YourBackground.jsx!
 
 ### Add a new 3d visualizer
 
-📦lib
+📦lib  
 ┣ 📜CONSTANTS.js
 
 ```js
@@ -134,9 +134,9 @@ export const VISUALIZER = {
 }
 ```
 
-📦features
-┣ 📂globalControl
-┃ ┗ 📂components
+📦features  
+┣ 📂globalControl  
+┃ ┗ 📂components  
 ┃ ┃ ┣ 📜VisualizerAndBackgroundSelect.jsx
 
 ```js
@@ -147,12 +147,12 @@ export const VISUALIZER = {
 </select>
 ```
 
-📦features
-┗ 📂visualizer
-┃ ┗ 📂components
-┃ ┃ ┣ 📜City.jsx
-┃ ┃ ┣ 📜Grass.jsx
-┃ ┃ ┣ 📜Sky.jsx
+📦features  
+┗ 📂visualizer  
+┃ ┗ 📂components  
+┃ ┃ ┣ 📜City.jsx  
+┃ ┃ ┣ 📜Grass.jsx  
+┃ ┃ ┣ 📜Sky.jsx  
 ┃ ┃ ┣ 📜YourVisualizer.jsx
 
 Then you can start to write YourVisualizer.jsx!

@@ -29,38 +29,38 @@ npm run dev
 ```
 
 # 文件夹结构
-📦public
-┣ 📂audio
-┣ 📂textures
-┃ ┣ 📂grass
-┃ ┗ 📂sky
+📦public  
+┣ 📂audio  
+┣ 📂textures  
+┃ ┣ 📂grass  
+┃ ┗ 📂sky  
 ┣ 📜audioData.json
 
-📦src
-┣ 📂assets
-┃ ┗ 📂fonts
-┣ 📂components
-┃ ┣ 📂ui
-┣ 📂features
-┃ ┣ 📂globalControl
-┃ ┃ ┗ 📂components
-┃ ┣ 📂infoDisplay
-┃ ┃ ┗ 📂components
-┃ ┣ 📂player
-┃ ┃ ┗ 📂components
-┃ ┗ 📂visualizer
-┃ ┃ ┗ 📂components
-┣ 📂hooks
-┣ 📂lib
-┣ 📂store
-┣ 📜App.jsx
-┣ 📜index.jsx
-┗ 📜styles.css
+📦src  
+┣ 📂assets  
+┃ ┗ 📂fonts  
+┣ 📂components  
+┃ ┣ 📂ui  
+┣ 📂features  
+┃ ┣ 📂globalControl  
+┃ ┃ ┗ 📂components  
+┃ ┣ 📂infoDisplay  
+┃ ┃ ┗ 📂components  
+┃ ┣ 📂player  
+┃ ┃ ┗ 📂components  
+┃ ┗ 📂visualizer  
+┃ ┃ ┗ 📂components  
+┣ 📂hooks  
+┣ 📂lib  
+┣ 📂store  
+┣ 📜App.jsx  
+┣ 📜index.jsx  
+┗ 📜styles.css  
 
 # 如何更新歌曲
-📦public
-┣ 📂audio
-┣ 📜audioData.json
+📦public  
+┣ 📂audio  
+┣ 📜audioData.json  
 
 请将你的歌曲文件（.mp3格式）添加到 audio 文件夹中，并同步更新 audioData.json 文件。如果不确定歌曲风格，可以暂时填写 "unknown"。
 
@@ -72,13 +72,13 @@ npm run dev
 
 ## 为新功能创建文件夹
 1. 如果你想添加新功能，请在 'features' 文件夹下新建一个与功能同名的文件夹，并在其中创建 'components' 子文件夹。
-📂featureName
+📂featureName  
 ┗ 📂components
 
 2. 继续你的开发工作
 
 ### 添加新的 3D 背景
-📦lib
+📦lib  
 ┣ 📜CONSTANTS.js
 
 ``` js
@@ -91,9 +91,9 @@ export const BACKGROUND = {
   NEW_BG: "NEW_BG",
 }
 ```
-📦features
-┣ 📂globalControl
-┃ ┗ 📂components
+📦features  
+┣ 📂globalControl  
+┃ ┗ 📂components   
 ┃ ┃ ┣ 📜VisualizerAndBackgroundSelect.jsx
 
 ``` js
@@ -104,18 +104,18 @@ export const BACKGROUND = {
 </select>
 ```
 
-📦features
-┗ 📂visualizer
-┃ ┗ 📂components
-┃ ┃ ┣ 📜City.jsx
-┃ ┃ ┣ 📜Grass.jsx
-┃ ┃ ┣ 📜Sky.jsx
-┃ ┃ ┣ 📜YourBackground.jsx
+📦features  
+┗ 📂visualizer  
+┃ ┗ 📂components  
+┃ ┃ ┣ 📜City.jsx  
+┃ ┃ ┣ 📜Grass.jsx  
+┃ ┃ ┣ 📜Sky.jsx  
+┃ ┃ ┣ 📜YourBackground.jsx  
 
 接下来就可以开始编写 YourBackground.jsx 啦！
 
 ### 添加新的 3D 可视化效果
-📦lib
+📦lib  
 ┣ 📜CONSTANTS.js
 
 ```js
@@ -126,9 +126,9 @@ export const VISUALIZER = {
   NEW_VISUALIZER: "NEW_VISUALIZER",
 }
 ```
-📦features
-┣ 📂globalControl
-┃ ┗ 📂components
+📦features  
+┣ 📂globalControl  
+┃ ┗ 📂components  
 ┃ ┃ ┣ 📜VisualizerAndBackgroundSelect.jsx
 
 ```js
@@ -139,12 +139,12 @@ export const VISUALIZER = {
 </select>
 ```
 
-📦features
-┗ 📂visualizer
-┃ ┗ 📂components
-┃ ┃ ┣ 📜City.jsx
-┃ ┃ ┣ 📜Grass.jsx
-┃ ┃ ┣ 📜Sky.jsx
+📦features  
+┗ 📂visualizer  
+┃ ┗ 📂components  
+┃ ┃ ┣ 📜City.jsx  
+┃ ┃ ┣ 📜Grass.jsx  
+┃ ┃ ┣ 📜Sky.jsx  
 ┃ ┃ ┣ 📜YourVisualizer.jsx
 
 接下来就可以开始编写 YourVisualizer.jsx 啦！
