@@ -3,7 +3,7 @@ import { useFrame } from "@react-three/fiber"
 import { useControls } from "leva"
 import { useRef } from "react"
 import * as THREE from "three"
-import { useAudioStore } from "../../../store/audioStore"
+// import { useAudioStore } from "../../../store/audioStore"
 
 export function Sky() {
   const ref = useRef()

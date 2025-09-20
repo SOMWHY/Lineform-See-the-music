@@ -1,13 +1,12 @@
 // 更新simplex-noise的导入方式，新版本使用命名导出
+import { useFrame, useLoader } from "@react-three/fiber"
 import { useMemo, useRef } from "react"
 import { createNoise2D } from "simplex-noise"
 import * as THREE from "three"
-import { useFrame, useLoader } from "@react-three/fiber"
 
 // 这些纹理来自 "Realistic real-time grass rendering" by Eddie Lee, 2010
 import bladeAlpha from "/textures/grass/blade_alpha.jpg"
 import bladeDiffuse from "/textures/grass/blade_diffuse.jpg"
-import { Sky } from "@react-three/drei"
 
 // 创建Simplex Noise实例的新方式
 const noise2D = createNoise2D()
@@ -19,7 +18,7 @@ const defaultBladeOptions = {
 }
 
 // 将着色器代码移出组件，避免每次渲染重新创建
-const getVertexSource = (height) => `
+const getVertexSource = height => `
 precision highp float;
 uniform mat4 modelViewMatrix;
 uniform mat4 projectionMatrix;
@@ -171,7 +170,7 @@ export default function Grass({ bladeOptions = defaultBladeOptions, width = 100,
 
   useFrame(state => {
     materialRef.current.uniforms.time.value = state.clock.elapsedTime / 4
-    
+
     // 添加缓慢旋转效果
     if (groupRef.current) {
       groupRef.current.rotation.y = state.clock.elapsedTime * 0.05 // 调整这个值可以改变旋转速度
@@ -180,14 +179,16 @@ export default function Grass({ bladeOptions = defaultBladeOptions, width = 100,
 
   return (
     <>
-      <group ref={groupRef}> {/* 将group添加引用 */}
+      <group ref={groupRef}>
+        {" "}
+        {/* 将group添加引用 */}
         <mesh>
           <instancedBufferGeometry
             attach='geometry'
             index={baseGeometry.index}
             attributes-position={baseGeometry.attributes.position}
             attributes-uv={baseGeometry.attributes.uv}
-            >
+          >
             <instancedBufferAttribute attach='attributes-offset' args={[new Float32Array(attributeData.offsets), 3]} />
             <instancedBufferAttribute attach='attributes-orientation' args={[new Float32Array(attributeData.orientations), 4]} />
             <instancedBufferAttribute attach='attributes-stretch' args={[new Float32Array(attributeData.stretches), 1]} />
@@ -199,14 +200,14 @@ export default function Grass({ bladeOptions = defaultBladeOptions, width = 100,
             ref={materialRef}
             glslVersion={THREE.GLSL3}
             uniforms={{
-                map: { value: texture },
-                alphaMap: { value: alphaMap },
-                time: { value: 0 },
-              }}
+              map: { value: texture },
+              alphaMap: { value: alphaMap },
+              time: { value: 0 },
+            }}
             vertexShader={getVertexSource(bladeOptions.height)}
             fragmentShader={fragmentSource}
             side={THREE.DoubleSide}
-            />
+          />
         </mesh>
         <mesh position={[0, 0, 0]} geometry={groundGeo} ref={groundRef}>
           <meshStandardMaterial attach='material' color='#000f00' />
