@@ -146,6 +146,7 @@ void main() {
 export default function Grass({ bladeOptions = defaultBladeOptions, width = 100, instances = 50000 }) {
   const materialRef = useRef()
   const groundRef = useRef()
+  const groupRef = useRef() // 添加group引用
   const [texture, alphaMap] = useLoader(THREE.TextureLoader, [bladeDiffuse, bladeAlpha])
 
   const attributeData = useMemo(() => getAttributeData(instances, width), [instances, width])
@@ -170,44 +171,48 @@ export default function Grass({ bladeOptions = defaultBladeOptions, width = 100,
 
   useFrame(state => {
     materialRef.current.uniforms.time.value = state.clock.elapsedTime / 4
+    
+    // 添加缓慢旋转效果
+    if (groupRef.current) {
+      groupRef.current.rotation.y = state.clock.elapsedTime * 0.05 // 调整这个值可以改变旋转速度
+    }
   })
 
   return (
     <>
-  
-    <group>
-      <mesh>
-        <instancedBufferGeometry
-          attach='geometry'
-          index={baseGeometry.index}
-          attributes-position={baseGeometry.attributes.position}
-          attributes-uv={baseGeometry.attributes.uv}
-          >
-          <instancedBufferAttribute attach='attributes-offset' args={[new Float32Array(attributeData.offsets), 3]} />
-          <instancedBufferAttribute attach='attributes-orientation' args={[new Float32Array(attributeData.orientations), 4]} />
-          <instancedBufferAttribute attach='attributes-stretch' args={[new Float32Array(attributeData.stretches), 1]} />
-          <instancedBufferAttribute attach='attributes-halfRootAngleSin' args={[new Float32Array(attributeData.halfRootAngleSin), 1]} />
-          <instancedBufferAttribute attach='attributes-halfRootAngleCos' args={[new Float32Array(attributeData.halfRootAngleCos), 1]} />
-        </instancedBufferGeometry>
-        <rawShaderMaterial
-          attach='material'
-          ref={materialRef}
-          glslVersion={THREE.GLSL3}
-          uniforms={{
-              map: { value: texture },
-              alphaMap: { value: alphaMap },
-              time: { value: 0 },
-            }}
-          vertexShader={getVertexSource(bladeOptions.height)}
-          fragmentShader={fragmentSource}
-          side={THREE.DoubleSide}
-          />
-      </mesh>
-      <mesh position={[0, 0, 0]} geometry={groundGeo} ref={groundRef}>
-        <meshStandardMaterial attach='material' color='#000f00' />
-      </mesh>
-    </group>
-          </>
+      <group ref={groupRef}> {/* 将group添加引用 */}
+        <mesh>
+          <instancedBufferGeometry
+            attach='geometry'
+            index={baseGeometry.index}
+            attributes-position={baseGeometry.attributes.position}
+            attributes-uv={baseGeometry.attributes.uv}
+            >
+            <instancedBufferAttribute attach='attributes-offset' args={[new Float32Array(attributeData.offsets), 3]} />
+            <instancedBufferAttribute attach='attributes-orientation' args={[new Float32Array(attributeData.orientations), 4]} />
+            <instancedBufferAttribute attach='attributes-stretch' args={[new Float32Array(attributeData.stretches), 1]} />
+            <instancedBufferAttribute attach='attributes-halfRootAngleSin' args={[new Float32Array(attributeData.halfRootAngleSin), 1]} />
+            <instancedBufferAttribute attach='attributes-halfRootAngleCos' args={[new Float32Array(attributeData.halfRootAngleCos), 1]} />
+          </instancedBufferGeometry>
+          <rawShaderMaterial
+            attach='material'
+            ref={materialRef}
+            glslVersion={THREE.GLSL3}
+            uniforms={{
+                map: { value: texture },
+                alphaMap: { value: alphaMap },
+                time: { value: 0 },
+              }}
+            vertexShader={getVertexSource(bladeOptions.height)}
+            fragmentShader={fragmentSource}
+            side={THREE.DoubleSide}
+            />
+        </mesh>
+        <mesh position={[0, 0, 0]} geometry={groundGeo} ref={groundRef}>
+          <meshStandardMaterial attach='material' color='#000f00' />
+        </mesh>
+      </group>
+    </>
   )
 }
 
