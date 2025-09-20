@@ -145,7 +145,7 @@ export function RandomTubes() {
     lineCount: { value: 12, min: 1, max: 30, step: 1 },
     radius: { value: 0.05, min: 0.01, max: 0.1, step: 0.01 },
     opacity: { value: 0.75, min: 0.1, max: 1, step: 0.05 },
-    speed: { value: 0.5, min: 0.1, max: 3, step: 0.1 }, // 控制旋转速度
+    speed: { value: 2.5, min: 0.1, max: 3, step: 0.1 }, // 控制旋转速度
     spread: { value: 15, min: 5, max: 450, step: 1 },
     freqSensitivity: { value: 1.2, min: 0.5, max: 5, step: 0.1 },
     speedInfluence: { value: 0.2, min: 0, max: 1, step: 0.05 }, // 控制音频对速度的影响程度
