@@ -7,7 +7,7 @@ import ZoomInLevelControl from "./ZoomInLevelControl"
 import VisualizerAndBackgroundSelect from "./VisualizerAndBackgroundSelect"
 
 const GlobalControlContainer = () => {
-  const [hideSidebar, setHideSidebar] = useState(false)
+  const [hideSidebar, setHideSidebar] = useState(true)
   function toggleSideBar() {
     setHideSidebar(curHideState => !curHideState)
   }

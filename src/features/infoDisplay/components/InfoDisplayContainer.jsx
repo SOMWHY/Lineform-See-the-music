@@ -5,7 +5,7 @@ import InfoList from "../../../components/InfoList"
 import NonInteractiveWavesurfer from "./NonInteractiveWavesurfer"
 
 const InfoDisplayContainer = () => {
-  const [hideSidebar, setHideSidebar] = useState(false)
+  const [hideSidebar, setHideSidebar] = useState(true)
 
   function toggleSideBar() {
     setHideSidebar(curHideState => !curHideState)

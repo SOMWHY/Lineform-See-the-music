@@ -8,9 +8,8 @@ import Footer from "./Footer"
 import { PlayBar } from "./PlayBar"
 import SongItem from "./SongItem"
 export const Playlist = () => {
-  //TODO
-  //waveform
-  const [hideSidebar, setHideSidebar] = useState(false)
+
+  const [hideSidebar, setHideSidebar] = useState(true)
   const songs = useAudioStore(state => state.songs)
 
   function toggleSideBar() {

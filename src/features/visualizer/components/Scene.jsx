@@ -55,7 +55,7 @@ export default function Scene() {
     spot3PosX: { value: 20, min: -50, max: 50, step: 1, label: "Spot 3 X" },
     spot3PosY: { value: -10, min: -50, max: 50, step: 1, label: "Spot 3 Y" },
     spot3PosZ: { value: 10, min: -50, max: 50, step: 1, label: "Spot 3 Z" },
-  })
+  },{collapsed: true})
 
   return (
     <>

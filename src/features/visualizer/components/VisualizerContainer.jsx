@@ -6,10 +6,11 @@ import Sky from "./Sky"
 const VisualizerContainer = () => {
   const background = useCanvasStore(state => state.background)
   const visualizer = useCanvasStore(state => state.visualizer)
+
   return (
     <>
-      {background===BACKGROUND.SKY&&<Sky />}
-      {visualizer===VISUALIZER.LINE_FORM&&<RandomTubes />}
+      {background === BACKGROUND.SKY && <Sky />}
+      {visualizer === VISUALIZER.LINE_FORM && <RandomTubes />}
     </>
   )
 }

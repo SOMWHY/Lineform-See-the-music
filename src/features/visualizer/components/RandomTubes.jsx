@@ -153,7 +153,7 @@ export function RandomTubes() {
     opacityInfluence: { value: 0.4, min: 0, max: 1, step: 0.05 }, // 控制频率对透明度的影响程度
     spreadInfluence: { value: 0.3, min: 0, max: 1, step: 0.05 }, // 控制声场对分布范围的影响程度
     spreadChangeThreshold: { value: 0.3, min: 0.1, max: 0.8, step: 0.05 } // 控制spread变化的阈值
-  });
+  },{collapsed: true});
 
   // 使用状态来跟踪所有参数
   const [lineCount, setLineCount] = useState(baseLineCount);

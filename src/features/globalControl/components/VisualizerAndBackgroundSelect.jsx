@@ -6,6 +6,8 @@ const VisualizerAndBackgroundSelect = () => {
   const visualizer = useCanvasStore(state => state.visualizer)
   const setBackground = useCanvasStore(state => state.setBackground)
   const setVisualizer = useCanvasStore(state => state.setVisualizer)
+  const setShowStatsGl = useCanvasStore(state => state.setShowStatsGl)
+  const showStatsGl = useCanvasStore(state => state.showStatsGl)
   return (
     <div className='mt-xs px-md  py-xs flex-center flex '>
       <div className='gap-2xs flex flex-col w-[100%]  justify-center items-center font-comingSoon tracking-tight text-lg'>
@@ -31,6 +33,7 @@ const VisualizerAndBackgroundSelect = () => {
             </option>
           </select>
         </div>
+     
       </div>
     </div>
   )

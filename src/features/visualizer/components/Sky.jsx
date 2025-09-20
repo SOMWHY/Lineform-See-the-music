@@ -25,7 +25,7 @@ export function Sky() {
     y: { value: 4, min: 0, max: 100, step: 1 },
     z: { value: 3, min: 0, max: 100, step: 1 },
     color: "#8dbac1",
-  })
+  },{collapsed: true})
 
   useFrame((state, delta) => {
     // let avg = playing ? update() :0
