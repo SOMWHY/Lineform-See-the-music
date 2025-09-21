@@ -149,6 +149,20 @@ export const VISUALIZER = {
 
 接下来就可以开始编写 YourVisualizer.jsx 啦！
 
+使用下面几行代码来获取你需要的音频数据。
+
+```js
+const { update } = useAudioStore(state => state.analyser)
+
+const { frequencyData, timeDomainData, rms, peak, sampleRate, frequencyBinCount } = update()
+```
+
+📦src  
+📦components  
+ ┣ 📜AudioEl.jsx  
+
+如果您想返回更多种类的音频数据，请编辑AudioEl.jsx里的updateAudioData方法。
+
 # 更新文档
 如果你发现文档内容已过时，与最新代码不匹配，欢迎及时更新它！
 

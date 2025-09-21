@@ -55,7 +55,7 @@ npm run dev
 ┣ 📂store  
 ┣ 📜App.jsx  
 ┣ 📜index.jsx  
-┗ 📜styles.css  
+┗ 📜styles.css
 
 ## Update songs
 
@@ -157,6 +157,21 @@ export const VISUALIZER = {
 
 Then you can start to write YourVisualizer.jsx!
 
+You can get audio data for visualization by using the next few lines.
+
+```js
+const { update } = useAudioStore(state => state.analyser)
+
+const { frequencyData, timeDomainData, rms, peak, sampleRate, frequencyBinCount } = update()
+```
+
+📦src  
+📦components  
+ ┣ 📜AudioEl.jsx  
+
+If you want more types of audio data to be returned，you could 
+edit updateAudioData function inside AudioEl.jsx.
+
 ## Update docs
 
 If the documentation is outdated and no longer matches the code, you can update it.
@@ -166,6 +181,7 @@ If the documentation is outdated and no longer matches the code, you can update 
 All contents of this repository are licensed under the MIT License.
 
 # Docs you might need
+
 R3F: https://r3f.docs.pmnd.rs/getting-started/your-first-scene
 Drei: https://drei.docs.pmnd.rs/getting-started/introduction
 Tailwindcss: https://tailwindcss.com/docs/installation/using-vite
