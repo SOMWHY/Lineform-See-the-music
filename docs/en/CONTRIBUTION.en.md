@@ -5,6 +5,7 @@ This website is completely community-driven by volunteers and is not affiliated 
 # What can you contribute?
 
 **As a developer**, you can contribute code, you can update songs and more.
+**As a modeler**, you can contribute the models needed for the 3D scene to *1928135011@qq.com*.
 **As a designer**, you can contribute design proposals to *1928135011@qq.com*.  
 **As a user**, you can report bugs or request features via issues.
 

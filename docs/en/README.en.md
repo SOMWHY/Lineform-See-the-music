@@ -39,7 +39,7 @@ The website is mainly divided into three areas:
 
 This project is completely community-driven by volunteers and is not an official product of Porter Robinson or his team. All code is open-source, and we sincerely invite you to join us in building this project-whether by sharing ideas, submitting code, or contributing designs, you are more than welcome!
 
-For more detailed contribution guidelines, please check out [Contribution.md](/docs/zh/CONTRIBUTION.md).
+For more detailed contribution guidelines, please check out [Contribution.md](/docs/en/CONTRIBUTION.en.md).
 
 # Contact
 You can contact the contributors by [opening an issue on GitHub](https://github.com/SOMWHY/Lineform-See-the-music/issues/new).
