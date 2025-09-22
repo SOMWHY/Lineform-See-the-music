@@ -4,9 +4,9 @@ This website is completely community-driven by volunteers and is not affiliated 
 
 # What can you contribute?
 
-**As a developer**, you can contribute code, you can update songs and more.
-**As a modeler**, you can contribute the models needed for the 3D scene to *1928135011@qq.com*.
-**As a designer**, you can contribute design proposals to *1928135011@qq.com*.  
+**As a developer**, you can contribute code, you can update songs and more.  
+**As a modeler**, you can contribute the models needed for the 3D scene to *1928135011@qq.com*.  
+**As a designer**, you can contribute design proposals to *1928135011@qq.com*.    
 **As a user**, you can report bugs or request features via issues.
 
 # For dev
@@ -183,6 +183,6 @@ All contents of this repository are licensed under the MIT License.
 
 # Docs you might need
 
-R3F: https://r3f.docs.pmnd.rs/getting-started/your-first-scene
-Drei: https://drei.docs.pmnd.rs/getting-started/introduction
-Tailwindcss: https://tailwindcss.com/docs/installation/using-vite
+R3F: https://r3f.docs.pmnd.rs/getting-started/your-first-scene  
+Drei: https://drei.docs.pmnd.rs/getting-started/introduction  
+Tailwindcss: https://tailwindcss.com/docs/installation/using-vite  

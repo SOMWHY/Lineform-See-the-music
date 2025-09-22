@@ -6,7 +6,7 @@
 # 你可以贡献什么？
 
 **作为开发者**：你可以贡献代码、更新歌曲等等  
-**作为建模师**：你可以贡献3d场景所需的模型至 *1928135011@qq.com*
+**作为建模师**：你可以贡献3d场景所需的模型至 *1928135011@qq.com*  
 **作为设计师**：你可以将设计提案发送至 *1928135011@qq.com*  
 **作为用户**：你可以通过提交 Issue 来报告 Bug 或提出功能需求
 
@@ -171,6 +171,6 @@ const { frequencyData, timeDomainData, rms, peak, sampleRate, frequencyBinCount 
 本仓库所有内容均采用 MIT 许可证授权。
 
 # 可能需要用到的文档
-R3F: https://r3f.docs.pmnd.rs/getting-started/your-first-scene
-Drei: https://drei.docs.pmnd.rs/getting-started/introduction
-Tailwindcss: https://tailwindcss.com/docs/installation/using-vite
+R3F: https://r3f.docs.pmnd.rs/getting-started/your-first-scene  
+Drei: https://drei.docs.pmnd.rs/getting-started/introduction  
+Tailwindcss: https://tailwindcss.com/docs/installation/using-vite  
